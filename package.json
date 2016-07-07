@@ -1,0 +1,35 @@
+{
+  "name": "votingapp",
+  "version": "1.0.1",
+  "description": "full stack voting app for free code camp",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joegrundman/votingapp.git"
+  },
+  "homepage": "",
+  "bugs": "https://github.com/Joegrundman/votingapp/issues",
+  "keywords": [
+    "MongoDB",
+    "Mongoose",
+    "full stack",
+    "Express",
+    "Node",
+    "Voting App",
+    "free code camp",
+    "clementine"
+  ],
+  "scripts": {
+  "start": "node server.js"
+  },
+  "author": "Joe Grundman",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^1.2.0",
+    "express": "^4.12.4",
+    "express-session": "^1.11.3",
+    "mongoose": "^4.1.0",
+    "passport": "^0.3.0",
+    "passport-github": "^1.0.0"
+  }
+}
