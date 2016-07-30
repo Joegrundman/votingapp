@@ -1,0 +1,6 @@
+add identification of who created which polls
+user can only delete own polls
+anyone can vote even if not authenticated
+ipaddress or local storage based vote restriction for unauthorised
+switch auth to fb
+permit fb sharing
