@@ -21,9 +21,26 @@
 				<a class="menu" href="/logout">Logout</a>
 			</div>
 		</div>
+		<br>
+		<div class="container">
+			<p> Click Button To Make A New Poll</p>
+
+			<a href="/newpoll">
+				<div class="btn" id="newpoll-btn">
+					New Poll
+				</div>
+			</a>
+		</div>
+		<br>
+		<h3> My Polls</h3>
+		<div class="container">
+			<div class="poll-container" id="poll-holder">
+			</div>
+		</div>		
 		
 		<script type="text/javascript" src="common/ajax-functions.js"></script>
 		<script type="text/javascript" src="controllers/userController.client.js"></script>
+		<script type="text/javascript" src="controllers/profileController.client.js"></script>
 	</body>
 
 </html>

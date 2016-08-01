@@ -1,5 +1,4 @@
 'use strict';
-
 var Poll = require('../models/polls')
 var path = process.cwd();
 
@@ -29,6 +28,7 @@ function PollHandler () {
       var polldata = req.body
       var title = polldata.polltitle
       var fields = []
+      var userdata = req.user
       for (var prop in polldata) {
          if (prop != 'polltitle') {
             
@@ -46,13 +46,14 @@ function PollHandler () {
             var poll = new Poll();
             poll.title = title;
             poll.fields = fields;
-
+            poll.author = userdata._id
+            
             poll.save(function(err) {
                if(err) {
                   throw err
                }
                console.log('successfully saved new poll')
-               res.sendFile(path + '/public/index.html')
+               res.sendFile(path + '/public/views/index.html')
             })
          }
 
@@ -60,10 +61,29 @@ function PollHandler () {
    }
 
    this.getPolls = function (req,res) {
-      Poll.find({}, function(err, doc) {
-         if (err) throw err;
+      Poll.find().populate('author').exec(function(err, doc){
+            if(err) throw err;
             res.json(doc)
       })
+   }
+
+   this.getUsersPolls = function (req, res) {
+         var userId = req.user._id;
+         Poll.find({author: {_id: userId}}).populate('author').exec(function(err, doc){
+               if(err) throw err;
+               res.json(doc)
+         })
+   }
+
+   this.getOnePoll = function (req, res) {
+         console.log('getting poll', req.url)
+         var title = decodeURIComponent(req.url.replace("/poll/", ""))
+         Poll.findOne({title:title}).populate('author').exec(function(err, doc) {
+               if(err) throw err;
+            // res.render(path + '/public/views/poll.html', {poll:doc})
+            var pollTpl = require('../templates/polltpl')(doc)
+            res.send(pollTpl)
+         })
    }
 
    this.deletePoll = function(req, res) { 

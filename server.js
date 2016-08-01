@@ -6,6 +6,8 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
 var bodyParser = require('body-parser');
+var swig = require('swig')
+
 
 var app = express();
 require('dotenv').load();
@@ -17,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 app.use('/public', express.static(process.cwd() + '/public'));
+app.use('/views', express.static(process.cwd() + '/public/views'));
 app.use('/common', express.static(process.cwd() + '/app/common'));
 
 app.use(session({
