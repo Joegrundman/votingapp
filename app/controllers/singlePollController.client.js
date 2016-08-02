@@ -9,10 +9,15 @@ function upVote(e) {
     var urlParts = e.id.split('/')
     var poll = encodeURIComponent(cssDec(urlParts[0]))
     var url = `/vote/${poll}/${urlParts[1]}`
-    ajaxFunctions.ajaxRequest('GET', url, function (doc) {
-        var docObj = JSON.parse(doc);
-        updateVoteOnPoll(docObj)
-    });
+    ajaxFunctions.ajaxRequest('GET', url, 
+      function success(doc) {
+         var docObj = JSON.parse(doc);
+         updateVoteOnPoll(docObj)
+      }, 
+      function error(err) {
+         err = JSON.parse(err)
+         document.querySelector("#errorMessage").innerHTML = err.msg
+      });
 }
 
 function addField(e) {

@@ -1,6 +1,5 @@
 var newPolUrl = appUrl + '/newpoll'
 var allPollsUrl = appUrl + '/allpolls'
-var voteUrl = appUrl + '/vote/'
 
 ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', allPollsUrl, updatePolls))
 
@@ -9,13 +8,11 @@ function updatePolls(data) {
 
     var fieldTemplate = function (field, pollTitle) {
         var thisPollUrl = cssDec(pollTitle) + "/" + field._id
-        return (
-           `
+        return (`
            <div>
                <h4 id="">${field.name}: <span id="votes_${field._id}">${field.votes} </span>
            </div>
-           `
-        )
+           `)
     }
 
     var pollTemplate = function (poll) {
@@ -30,8 +27,7 @@ function updatePolls(data) {
             return tpl += fieldTemplate(curField, poll.title)
         }, '')
 
-        return (
-            `
+        return (`
          <div>
             <h3>${title}</h3> by ${author}
             <div id="fieldContainer_${encTitle}">
@@ -42,8 +38,7 @@ function updatePolls(data) {
          </div>
          <br>
          <br>
-         `
-        )
+         `)
     }
     var pollsHtml = pollsObject.map(function (p) { return pollTemplate(p) }).join('')
     document.querySelector('#poll-holder').innerHTML = pollsHtml;

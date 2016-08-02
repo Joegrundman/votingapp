@@ -76,12 +76,11 @@ function PollHandler () {
    }
 
    this.getOnePoll = function (req, res) {
-         console.log('getting poll', req.url)
          var title = decodeURIComponent(req.url.replace("/poll/", ""))
          Poll.findOne({title:title}).populate('author').exec(function(err, doc) {
                if(err) throw err;
             // res.render(path + '/public/views/poll.html', {poll:doc})
-            var pollTpl = require('../templates/polltpl')(doc)
+            var pollTpl = require('../templates/polltpl')(doc, req.isAuthenticated())
             res.send(pollTpl)
          })
    }
@@ -94,15 +93,23 @@ function PollHandler () {
       })
    }
 
-   this.upVote = function(req, res) {      
+   this.upVote = function(req, res) { 
+      var ipAddress = req.ip.toString(); 
       var parsedUrl = req.url.replace(/\/vote\//, "").split("/")
       var poll = decodeURIComponent(parsedUrl[0]) 
       var field = decodeURIComponent(parsedUrl[1]) 
       Poll.findOne({title: poll}, function(err, doc){
          if(err) throw err;
-
+         if(doc.votedByIP.indexOf(ipAddress) != -1) {
+               console.log('error already voted on' + decodeURI(req.url))
+              return res.status(409).json({
+                    msg: "you have already voted on this poll"
+                  })
+         }
          var retrievedField = doc.fields.filter(function(f){ return f._id == field})[0]
          retrievedField.votes++
+         doc.votedByIP.push(ipAddress)
+
          doc.save(function(err) {
             if(err) throw err;
 

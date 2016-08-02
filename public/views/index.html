@@ -10,15 +10,25 @@
 	</head>
 
 	<header>
-		<p>Welcome, <span id="display-name"></span>!</p>
+		<p>Welcome, <span id="display-name">Guest</span>!</p>
 		<a class="menu" href="/profile">Profile</a>
 		<p>|</p>
 		<a class="menu" href="/logout">Logout</a>
+		<p>|</p>
+		<a class="menu" href="/login">Login</a>
 	</header>
 
 	<body>
 		<br>
-		<h2> You may create a new poll from your dashboard</h2>
+		<div class="container">
+			<p> Click Button To Make A New Poll</p>
+			<small>You must be logged in first</small>
+			<a href="/newpoll">
+				<div class="btn" id="newpoll-btn">
+					New Poll
+				</div>
+			</a>
+		</div>
 		<br>
 
 		<div class="container">

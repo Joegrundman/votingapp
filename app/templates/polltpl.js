@@ -1,9 +1,19 @@
-module.exports = function(poll){
+module.exports = function(poll, isAuthenticated){
 	
 	var author = 'Unknown'
 	if(poll.author && poll.author.github && poll.author.github.displayName) {
 		author = poll.author.github.displayName;
 	}
+
+	var addFieldBtn = (`
+	<button type="button" 
+			id="addField_${cssEnc(poll.title)}" 
+			class="btn btn-info" 
+			onclick="addField(this)">
+			Add Field
+	</button>
+	<br>
+	`)
 
    function getField(field, pollTitle) {
 		var thisPollUrl = cssEnc(pollTitle) + "/" + field._id;
@@ -14,8 +24,6 @@ module.exports = function(poll){
       </div>
    `)
    }
-
-   var fields = poll.fields.map(f => getField(f, poll.title))
 
    return (`
 <!DOCTYPE html>
@@ -36,14 +44,15 @@ module.exports = function(poll){
       <div class="container">
          <h3 id="pollTitle">${poll.title}</h3> by <span id="pollAuthor">${author}</span>
       </div>
+		<span id="errorMessage"></span>
 		<div class="fieldContainer">
-         ${fields}
+         ${poll.fields.map(f => getField(f, poll.title))}
 		</div>
       <br>
-		<button type="button" id="addField_${cssEnc(poll.title)}" class="btn btn-info" onclick="addField(this)">Add Field</button>
-		<br>
+		${isAuthenticated ? addFieldBtn : null}
 		<br>
 		<a href="/"><button class="btn btn-info">Go Back</button></a>
+		<br>
 
 		<!--  note these resources go back one directory otherwise looks from /poll/-->
 		<script type="text/javascript" src="../common/ajax-functions.js"></script>

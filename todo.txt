@@ -1,0 +1,4 @@
+switch auth to fb
+permit fb/twitter sharing
+show poll results in beautiful format using chartjs or d3js
+comments
