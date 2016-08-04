@@ -21,8 +21,8 @@ function updatePolls(data) {
         var title = poll.title
         var encTitle = cssEnc(title)
         var author = 'unknown'
-        if(poll.author && poll.author.github && poll.author.github.displayName) {
-            author = poll.author.github.displayName
+        if(poll.author && poll.author.facebook && poll.author.facebook.displayName) {
+            author = poll.author.facebook.displayName
         }
         var fields = poll.fields.reduce(function (acc, cur) {
             return acc += fieldTemplate(cur, poll.title)

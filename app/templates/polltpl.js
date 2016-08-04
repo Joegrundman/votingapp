@@ -1,8 +1,9 @@
 module.exports = function(poll, isAuthenticated){
 	
 	var author = 'Unknown'
-	if(poll.author && poll.author.github && poll.author.github.displayName) {
-		author = poll.author.github.displayName;
+
+	if (poll.author && poll.author.facebook && poll.author.facebook.displayName) {
+		author = poll.author.facebook.displayName;		
 	}
 
 	var addFieldBtn = (`
@@ -19,8 +20,8 @@ module.exports = function(poll, isAuthenticated){
 		var thisPollUrl = cssEnc(pollTitle) + "/" + field._id;
       return (`
    	<div>
-         <h4>${field.name }: <span id="votes_${field._id}">${field.votes}</span></h4>
-			<button id="${thisPollUrl}" class="btn-vote" onclick="upVote(this)">Vote</button>
+         <span>${field.name }: <span id="votes_${field._id}">${field.votes}</span></span>
+			<button id="${thisPollUrl}" class="btn btn-primary btn-vote" onclick="upVote(this)">Vote</button>
       </div>
    `)
    }
@@ -31,30 +32,35 @@ module.exports = function(poll, isAuthenticated){
 <html>
 
 	<head>
-		<title>Clementine.js - The elegant and lightweight full stack JavaScript boilerplate.</title>
+		<title>rs-votemaster</title>
 		<link href="/public/css/bootswatch-journal.min.css" rel="stylesheet" type="text/css">		
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
 	</head>
 
 	<body>
-
-		<div class="container">
-         <h1>Individual Poll Page</h1>
-		</div>		
+	
       <div class="container">
-         <h3 id="pollTitle">${poll.title}</h3> by <span id="pollAuthor">${author}</span>
+         <h1 class="text-center" id="pollTitle">${poll.title}</h3> 
+		   <h4 id="pollAuthor" class="text-center">posted by ${author}</h4>
       </div>
+		<br>
+		<br>
+		<div class="container">
+			<div id="bar-chart">
+			</div>
+		</div>
 		<span id="errorMessage"></span>
-		<div class="fieldContainer">
-         ${poll.fields.map(f => getField(f, poll.title))}
+		<div class="container fieldContainer">
+         ${poll.fields.map(f => getField(f, poll.title)).join('')}
 		</div>
       <br>
-		${isAuthenticated ? addFieldBtn : null}
+		${isAuthenticated ? addFieldBtn : ''}
 		<br>
 		<a href="/"><button class="btn btn-info">Go Back</button></a>
 		<br>
 
 		<!--  note these resources go back one directory otherwise looks from /poll/-->
+		<script src="//d3js.org/d3.v3.min.js"></script>
 		<script type="text/javascript" src="../common/ajax-functions.js"></script>
 		<script type="text/javascript" src="../controllers/singlePollController.client.js"></script>
 	</body>

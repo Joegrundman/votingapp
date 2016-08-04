@@ -19,7 +19,9 @@
          updateHtmlElement(userObject, displayName, 'displayName');
       } else if (userObject.username) {
          updateHtmlElement(userObject, displayName, 'username');
-      } 
+      } else if (userObject.name) {
+         updateHtmlElement(userObject, displayName, 'name');
+      }
 
       if (profileId !== null) {
          updateHtmlElement(userObject, profileId, 'id');   

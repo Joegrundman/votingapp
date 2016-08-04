@@ -50,18 +50,27 @@ module.exports = function (app, passport) {
 	app.route('/api/:id')
 		.get(function (req, res) {
 			if(req.user) {
-				res.json(req.user.github);
+				res.json(req.user.facebook);
 			} else {
 				res.json({})
 			}
 
 		});
 
-	app.route('/auth/github')
-		.get(passport.authenticate('github'));
+	// app.route('/auth/github')
+	// 	.get(passport.authenticate('github'));
 
-	app.route('/auth/github/callback')
-		.get(passport.authenticate('github', {
+	// app.route('/auth/github/callback')
+	// 	.get(passport.authenticate('github', {
+	// 		successRedirect: '/',
+	// 		failureRedirect: '/login'
+	// 	}));
+
+	app.route('/auth/facebook')
+		.get(passport.authenticate('facebook'));
+
+	app.route('/auth/facebook/callback')
+		.get(passport.authenticate('facebook', {
 			successRedirect: '/',
 			failureRedirect: '/login'
 		}));
@@ -72,6 +81,8 @@ module.exports = function (app, passport) {
 	app.route('/poll/:polltitle')
 		.get(pollHandler.getOnePoll)
 
+   app.route('/polldata/:polltitle')
+		.get(pollHandler.getSinglePollData)
 
 	app.route('/newpoll')
 		.get(isLoggedIn, function(req, res) {

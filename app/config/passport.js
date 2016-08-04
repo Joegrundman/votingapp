@@ -1,5 +1,6 @@
 'use strict';
 
+var FacebookStrategy = require('passport-facebook').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
 var User = require('../models/users');
 var configAuth = require('./auth');
@@ -15,38 +16,56 @@ module.exports = function (passport) {
 		});
 	});
 
-	passport.use(new GitHubStrategy({
-		clientID: configAuth.githubAuth.clientID,
-		clientSecret: configAuth.githubAuth.clientSecret,
-		callbackURL: configAuth.githubAuth.callbackURL
+	passport.use(new FacebookStrategy({
+		clientID: configAuth.facebookAuth.clientID,
+		clientSecret: configAuth.facebookAuth.clientSecret,
+		callbackURL: configAuth.facebookAuth.callbackURL
 	},
-	function (token, refreshToken, profile, done) {
-		process.nextTick(function () {
-			User.findOne({ 'github.id': profile.id }, function (err, user) {
-				if (err) {
+	function(token, refreshToken, profile, done) {
+		process.nextTick(function() {
+			console.log('profile', profile)
+			User.findOne({
+				'facebook.id': profile.id
+			}, function (err, user) {
+				if(err) {
+					console.log('error triggered')
 					return done(err);
 				}
-
-				if (user) {
+				if(user){ 
+					console.log('retrieved user')
 					return done(null, user);
 				} else {
+					console.log('making new user')
 					var newUser = new User();
+					var username  = '';
+					var displayName = '';
+					if (profile.username) {
+						username = profile.username;
+					}
+					if(profile.displayName) {
+						displayName = profile.displayName;
+					}
 
-					newUser.github.id = profile.id;
-					newUser.github.username = profile.username;
-					newUser.github.displayName = profile.displayName;
-					newUser.github.publicRepos = profile._json.public_repos;
-					newUser.nbrClicks.clicks = 0;
+					// set all of the facebook information in our user model
+					newUser.facebook.id    = profile.id; // set the users facebook id                   
+					newUser.facebook.token = token; // we will save the token that facebook provides to the user                    
+					newUser.facebook.username  = username;
+					newUser.facebook.displayName = displayName;
+					
+					// save our user to the database
+					newUser.save(function(err) {
+						if (err)
+								throw err;
 
-					newUser.save(function (err) {
-						if (err) {
-							throw err;
-						}
-
+						// if successful, return the new user
 						return done(null, newUser);
 					});
 				}
-			});
-		});
-	}));
+			})
+		})
+
+	}
+	))
+
+
 };

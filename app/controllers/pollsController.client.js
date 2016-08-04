@@ -19,8 +19,8 @@ function updatePolls(data) {
         var title = poll.title
         var encTitle = cssEnc(title)
         var author = 'unknown'
-        if(poll.author && poll.author.github && poll.author.github.displayName) {
-            author = poll.author.github.displayName
+        if(poll.author && poll.author.facebook && poll.author.facebook.displayName) {
+            author = poll.author.facebook.displayName
         }
         // convert fields array into template string
         var fields = poll.fields.reduce(function (tpl, curField) {

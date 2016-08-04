@@ -1,4 +1,7 @@
-switch auth to fb
-permit fb/twitter sharing
+set display name to given name and family name if missing
 show poll results in beautiful format using chartjs or d3js
+wrap name labels
+have individual poll live update the graph on click
+switch multiple vote security to localstorage.
 comments
+tidy up

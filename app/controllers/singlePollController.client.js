@@ -9,15 +9,15 @@ function upVote(e) {
     var urlParts = e.id.split('/')
     var poll = encodeURIComponent(cssDec(urlParts[0]))
     var url = `/vote/${poll}/${urlParts[1]}`
-    ajaxFunctions.ajaxRequest('GET', url, 
-      function success(doc) {
-         var docObj = JSON.parse(doc);
-         updateVoteOnPoll(docObj)
-      }, 
-      function error(err) {
-         err = JSON.parse(err)
-         document.querySelector("#errorMessage").innerHTML = err.msg
-      });
+    ajaxFunctions.ajaxRequest('GET', url,
+        function success(doc) {
+            var docObj = JSON.parse(doc);
+            updateVoteOnPoll(docObj)
+        },
+        function error(err) {
+            err = JSON.parse(err)
+            document.querySelector("#errorMessage").innerHTML = err.msg
+        });
 }
 
 function addField(e) {
@@ -69,9 +69,130 @@ function cssEnc(name) {
 }
 
 // closes open newField inputs
-function closeAnyNewField () {
-    if(document.querySelector('#newFormFieldInput')){
+function closeAnyNewField() {
+    if (document.querySelector('#newFormFieldInput')) {
         document.querySelector('#newFormFieldInput').outerHTML = ''
     }
 }
 
+var title = document.querySelector('#pollTitle').textContent;
+var getPollUrl = '/polldata/' + title
+
+var polldata = ajaxFunctions.ajaxRequest('get', getPollUrl, function (data) {
+    var fields = JSON.parse(data).fields
+    var names = fields.map(f => f.name)
+    var votes = fields.map(f => f.votes)
+
+    var margin = { top: 30, right: 10, bottom: 60, left: 180 }
+    var width = 860 - margin.left - margin.right;
+    var barThickness = 30;
+    var barOffset = 15;
+    var height = ((barThickness + barOffset) * names.length)
+    var leftWidth = 100
+
+    var xScale = d3.scale.linear()
+        .domain([0, d3.max(votes) + 1])
+        .range([0, width])
+
+    var yScale = d3.scale.ordinal()
+        .domain(names)
+        .rangeRoundBands([0, height])
+   
+    var colors = d3.scale.linear()
+        .domain([0, names.length])
+        .range(['#e85400', '#fed19f'])
+
+    var chart = d3.select('#bar-chart').append("svg")
+        .attr("class", "chart center-block")
+        .attr('width', width + margin.right + margin.left)
+        .attr('height', height + margin.top + margin.bottom)
+        .append('g')
+        .attr('transform', `translate(${margin.left}, ${margin.top})`)
+        
+    var xAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient('bottom')
+            .ticks(votes.size)
+            .tickFormat(d3.format("d"))
+
+    var yAxis = d3.svg.axis()
+            .scale(yScale)
+            .orient("left")
+
+   chart.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+        .append("text")
+        .attr("x", 280)
+        .attr("dy", "2.5em")
+        .style("color", "#222222")
+        .style("font-size", 16)
+        .text("Votes Received")
+
+    chart.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+
+    var shadowbars = chart.selectAll('.shadowbars').data(votes)
+        .enter().append('rect')
+        .attr("class", "shadowbars")
+        .style("fill", "#c3c3c3")
+        .attr('height', barThickness)
+        .attr('width', function (data) {
+            return 0;
+        })
+        .attr('x', function (data) {
+            return 4
+        })
+        .attr('y', function (data, i) {
+            return (i * (barThickness + barOffset)) + 4;
+        })
+
+    var bars = chart.selectAll('.bars').data(votes)
+        .enter().append('rect')
+        .attr("class", "bars")
+        .style("fill", function (data, i) { return colors(i) })
+        .attr('height', barThickness)
+        .attr('width', function (data) {
+            return 0;
+        })
+        .attr('x', function (data) {
+            return 0
+        })
+        .attr('y', function (data, i) {
+            return i * (barThickness + barOffset);
+        })
+
+ // transitions
+
+shadowbars.transition()
+        .attr("width", function (data) {
+            return xScale(data)
+        })
+        .attr("x", function (data) {
+            return 4
+        })
+        .delay(function (data, i) {
+            return i * 20
+        })
+        .duration(2000)
+       .ease("quad")
+
+    bars.transition()
+        .attr("width", function (data) {
+            return xScale(data)
+        })
+        .attr("x", function (data) {
+            return 0
+        })
+        .delay(function (data, i) {
+            return i * 20
+        })
+        .duration(2000)
+       .ease("quad")
+
+
+
+
+})

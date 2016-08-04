@@ -28,6 +28,7 @@ function PollHandler () {
       var polldata = req.body
       var title = polldata.polltitle
       var fields = []
+      // console.log(req.user)
       var userdata = req.user
       for (var prop in polldata) {
          if (prop != 'polltitle') {
@@ -82,6 +83,14 @@ function PollHandler () {
             // res.render(path + '/public/views/poll.html', {poll:doc})
             var pollTpl = require('../templates/polltpl')(doc, req.isAuthenticated())
             res.send(pollTpl)
+         })
+   }
+
+   this.getSinglePollData = function(req, res) {
+         var title = decodeURIComponent(req.url.replace("/polldata/", ""))
+         Poll.findOne({ title: title}, function(err, doc){
+               if(err) throw err;
+               res.json(doc)
          })
    }
 

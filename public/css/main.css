@@ -21,7 +21,15 @@ body {
 	font-size: 16px;
 	margin: 0;
 	padding: 0;
+	/*background-color: #c9ecf8;*/
+	  background: #c9ecf8; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left top, #4267B2, #c9ecf8); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, #4267B2, #c9ecf8); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, #4267B2, #c9ecf8); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, #4267B2, #c9ecf8); /* Standard syntax */
 }
+
+
 
 header {
 	color: #00BCD4;
@@ -119,7 +127,7 @@ img {
 	text-align: center;
 }
 
-.btn {	/* Styling for buttons */
+/*.btn {	
 	margin: 0 8px;
 	color: white;
 	background-color: #00BCD4;
@@ -130,26 +138,26 @@ img {
 	padding: 10px 5px;
 	width: 100px;
 	font-weight: 500;
-}
+}*/
 
-.btn:focus {	/* Remove outline when hovering over button */
+/*.btn:focus {
 	outline: none;
-}
+}*/
 
-.btn:active {	/* Scale the button down by 10% when clicking on button */
+/*.btn:active {	
 	transform: scale(0.9, 0.9);
 	-webkit-transform: scale(0.9, 0.9);
 	-moz-transform: scale(0.9, 0.9);
-}
+}*/
 
-.btn-delete {	/* Styling for delete button */
+/*.btn-delete {	
 	background-color: #ECEFF1;
 	color: #212121;
-}
+}*/
 
-#click-nbr {
+/*#click-nbr {
 	font-weight: 400;
-}
+}*/
 
 /****** Profile Styling ******/
 
@@ -201,4 +209,67 @@ span {
 	color: #FFFFFF;
 	display: inline;
 	margin: 0;
+}
+
+.facebook {
+	background-color: #4267B2;
+}
+
+/***** vote button  *****/
+
+.vote-button {
+	background-color: #ff630d;
+	border-radius: 5px;
+	margin: 1px;
+	color: white;
+	border: 1px solid #ff8545;
+	width: 250px;
+	height: 80px;
+}
+
+.vote-button:hover {
+	background-color: #ff8545;
+	border: 1px solid #ff9555;
+	cursor: pointer;
+}
+
+/*d3js*/
+
+/*.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}*/
+
+.chart {
+	background: #f8f8f8;
+	box-shadow: 2px 2px 3px rgba(40,40,40, 0.5);
+}
+
+.bars {
+	stroke: "#31708f";
+	stroke-width: 5px;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.chart text {
+  color: #444;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px
+}
+
+.y.axis path {
+  display: none;
 }
