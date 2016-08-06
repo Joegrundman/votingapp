@@ -213,7 +213,13 @@ span {
 
 .facebook {
 	background-color: #4267B2;
+	color: white;
 }
+.facebook:hover{
+	background-color: #2c5b9f;
+}
+
+
 
 /***** vote button  *****/
 
@@ -272,4 +278,12 @@ span {
 
 .y.axis path {
   display: none;
+}
+
+.pnl-newpoll {
+	margin: auto;
+	padding: 1em;
+	background-color:#f8f8f8;
+	box-shadow: 2px 2px 3px rgba(40,40,40, 0.5);
+	width: 50em;
 }

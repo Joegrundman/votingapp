@@ -27,5 +27,27 @@ var ajaxFunctions = {
 
       xmlhttp.open(method, url, true);
       xmlhttp.send();
+   },
+   ajaxByObj: function ajaxByObj (req) {
+      const url = req.url;
+      const method = req.method || 'get';
+      const successCallback = req.success;
+      const errorCallback = req.error;
+      const contentType = req.contentType || "application/x-www-form-urlencoded";
+      const dataType = req.dataType || 'json';
+      const payload = req.payload || ''; 
+      let xhr = new XMLHttpRequest();
+      xhr.open(method, url)
+      xhr.setRequestHeader("Content-type", contentType)
+      xhr.responseType = dataType
+      xhr.onload = function () {
+         let _this = this
+         if (this.status == 200) {
+            successCallback(_this.response)
+         } else {
+            errorCallback(_this.response)
+         }
+      }
+      xhr.send(payload)
    }
 };

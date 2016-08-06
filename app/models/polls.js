@@ -7,7 +7,8 @@ var Poll = new Schema({
    title: {type: String, unique: true},
    fields: [{name: String, votes: Number}],
    votedByIP: [String],
-   author: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+   author: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+   isClosed: {type: Boolean, default: false}
 })
 
 module.exports = mongoose.model('Poll', Poll);

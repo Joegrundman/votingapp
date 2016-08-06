@@ -24,15 +24,14 @@ function PollHandler () {
    }
 
 
-   this.addPoll = function(req, res) {
+   this.addNewPoll = function(req, res) {
       var polldata = req.body
+      console.log(polldata)
       var title = polldata.polltitle
       var fields = []
-      // console.log(req.user)
       var userdata = req.user
       for (var prop in polldata) {
-         if (prop != 'polltitle') {
-            
+         if (prop != 'polltitle') {            
             fields.push({"name": polldata[prop], "votes": 0})
          }
       }
@@ -49,12 +48,13 @@ function PollHandler () {
             poll.fields = fields;
             poll.author = userdata._id
             
-            poll.save(function(err) {
+            poll.save(function(err, poll) {
                if(err) {
                   throw err
                }
                console.log('successfully saved new poll')
-               res.sendFile(path + '/public/views/index.html')
+
+               res.json(poll)
             })
          }
 
@@ -64,7 +64,9 @@ function PollHandler () {
    this.getPolls = function (req,res) {
       Poll.find().populate('author').exec(function(err, doc){
             if(err) throw err;
-            res.json(doc)
+            var polls = doc.filter(function(poll) {return poll.title != undefined})
+                           .filter(function(poll) { return poll.isClosed != true})
+            res.json(polls)
       })
    }
 
@@ -72,7 +74,8 @@ function PollHandler () {
          var userId = req.user._id;
          Poll.find({author: {_id: userId}}).populate('author').exec(function(err, doc){
                if(err) throw err;
-               res.json(doc)
+               var polls = doc.filter(function (poll) { return poll.title != undefined })
+               res.json(polls)
          })
    }
 
@@ -99,6 +102,22 @@ function PollHandler () {
       Poll.remove({title: title}, function(err, doc){
             if(err) throw err
             res.send();
+      })
+   }
+
+   this.toggleClosePoll = function(req, res) { 
+      var title = decodeURIComponent(req.url.replace("/toggleClosePoll/", ""))
+      Poll.findOne({title: title}, function(err, doc){
+            if(err) throw err
+            doc.isClosed = !doc.isClosed
+            doc.save(function (err, doc){
+                  if(err) throw err
+                  var msg = {
+                        "poll": doc.title,
+                        "isClosed": doc.isClosed
+                  }
+                  res.json(msg);
+            })
       })
    }
 

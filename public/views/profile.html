@@ -3,64 +3,48 @@
 <html>
 
 	<head>
-		<meta property="og:url" content="http://localhost:3000">
-		<meta property="og:type" content="website">
-		<meta property="og:title" content="rs-votemaster">
-		<meta property="og:description" content="Poll your most burning questions here">
-
 		<title>rs-votemaster</title>
 		<link href="/public/css/bootswatch-journal.min.css" rel="stylesheet" type="text/css">		
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
 	</head>
 
 	<body>
-			<!-- Load Facebook SDK for JavaScript -->
-		<div id="fb-root"></div>
-		<script>(function(d, s, id) {
-			var js, fjs = d.getElementsByTagName(s)[0];
-			if (d.getElementById(id)) return;
-			js = d.createElement(s); js.id = id;
-			js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.7&appId=1699393133613242";
-			fjs.parentNode.insertBefore(js, fjs);
-			}(document, 'script', 'facebook-jssdk'));
-	</script>
 
-		<!-- Your share button code -->
-		<div class="fb-share-button" 
-			data-href="http://localhost:3000/" 
-			data-layout="button_count" 
-			data-size="large" 
-			data-mobile-iframe="true">
-		<a class="fb-xfbml-parse-ignore" 
-			target="_blank" 
-			href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>
-		<!--end facebook share section-->
-		<br>
-		<br>
-		<h3><span id="display-name" class="profile-value"></span></h3>
-		<div class="container">
-			<a class="menu" href="/">Home</a>
-			<p id="menu-divide">|</p>
-			<a class="menu" href="/logout">Logout</a>
-		</div>
-		<br>
-		<div class="container">
-			<p> Click Button To Make A New Poll</p>
-
-			<a href="/newpoll">
-				<div class="btn" id="newpoll-btn">
-					New Poll
-				</div>
+			<a href="/logout" style="text-decoration: none; color: white">
+				<button class="btn btn-large btn-info" >Logout</button>
+			</a>
+			<a href="/" style="text-decoration: none; color: white">
+				<button class="btn btn-large btn-default" >Go Back</button>
 			</a>
 		</div>
+		<h1 class="text-center">Dashboard: <span id="display-name" class="profile-value"></span></h1>
+
 		<br>
-		<h3> My Polls</h3>
+		<div class="container">
+			<div class="panel pnl-newpoll">
+				<div class="form-group form-newpoll">
+					<input class="form-control fc-newpoll-title"  id ="newPollTitle" maxlength="28" type="text" placeholder="Title of New Poll">
+					<br>
+					<br>
+					<input class="form-control fc-newpoll-option" id="option1" maxlength="28" type="text" placeholder="Option 1">
+					<br>
+					<input class="form-control fc-newpoll-option" id="option2" maxlength="28" type="text" placeholder="Option 2">
+				</div>
+				<button class="btn btn-info" onclick="addFieldToNewPoll()">Add Option</button>
+				<button class="btn btn-success" onclick="submitNewPoll()">Submit</button>
+			</div>
+
+		</div>
+		<br>
 		<div class="container">
 			<div class="poll-container" id="poll-holder">
 			</div>
-		</div>		
-		
+		</div>
+				
+		<script src="//d3js.org/d3.v3.min.js"></script>		
+		<script type="text/javascript" src="common/encoding.js"></script>
 		<script type="text/javascript" src="common/ajax-functions.js"></script>
+		<script type="text/javascript" src="common/barcharts.js"></script>
 		<script type="text/javascript" src="controllers/userController.client.js"></script>
 		<script type="text/javascript" src="controllers/profileController.client.js"></script>
 	</body>

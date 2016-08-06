@@ -9,7 +9,7 @@ module.exports = function (app, passport) {
 		if (req.isAuthenticated()) {
 			return next();
 		} else {
-			res.redirect('/login');
+			res.redirect('/');
 			
 		}
 	}
@@ -17,18 +17,9 @@ module.exports = function (app, passport) {
 
 	var pollHandler = new PollHandler();
 
-	// app.route('/')
-	// 	.get(isLoggedIn, function (req, res) {
-	// 		res.sendFile(path + '/public/views/index.html');
-	// 	});
 	app.route('/')
 		.get(function (req, res) {
 			res.sendFile(path + '/public/views/index.html');
-		});
-
-	app.route('/login')
-		.get(function (req, res) {
-			res.sendFile(path + '/public/views/login.html');
 		});
 
 	app.route('/logout')
@@ -42,11 +33,6 @@ module.exports = function (app, passport) {
 			res.sendFile(path + '/public/views/profile.html');
 		});
 
-	// app.route('/api/:id')
-	// 	.get(isLoggedIn, function (req, res) {
-	// 		res.json(req.user.github);
-	// 	});
-
 	app.route('/api/:id')
 		.get(function (req, res) {
 			if(req.user) {
@@ -57,26 +43,14 @@ module.exports = function (app, passport) {
 
 		});
 
-	// app.route('/auth/github')
-	// 	.get(passport.authenticate('github'));
-
-	// app.route('/auth/github/callback')
-	// 	.get(passport.authenticate('github', {
-	// 		successRedirect: '/',
-	// 		failureRedirect: '/login'
-	// 	}));
-
 	app.route('/auth/facebook')
 		.get(passport.authenticate('facebook'));
 
 	app.route('/auth/facebook/callback')
 		.get(passport.authenticate('facebook', {
 			successRedirect: '/',
-			failureRedirect: '/login'
+			failureRedirect: '/'
 		}));
-
-	// app.route('/poll/:polltitle')
-	// 	.get(isLoggedIn, pollHandler.getOnePoll)
 
 	app.route('/poll/:polltitle')
 		.get(pollHandler.getOnePoll)
@@ -88,29 +62,23 @@ module.exports = function (app, passport) {
 		.get(isLoggedIn, function(req, res) {
 			res.sendFile(path + '/public/views/newpoll.html');
 		})
-		.post(isLoggedIn, pollHandler.addPoll);
+		.post(isLoggedIn, pollHandler.addNewPoll);
 
 	app.route('/delPoll/:title')
 		.post(isLoggedIn, pollHandler.deletePoll);
 
-	// app.route('/addField/:title/:newField')
-	// 	.post(isLoggedIn, pollHandler.addFieldToPoll)
+	app.route('/toggleClosePoll/:title')
+		.post(isLoggedIn, pollHandler.toggleClosePoll);
 
 
 	app.route('/addField/:title/:newField')
 		.post(pollHandler.addFieldToPoll)
 
-
-	// app.route('/allpolls')
-	// 	.get(isLoggedIn, pollHandler.getPolls);
 	app.route('/allpolls')
 		.get(pollHandler.getPolls);
 
 	app.route('/usersPolls')
 		.get(isLoggedIn, pollHandler.getUsersPolls);
-
-	// app.route('/vote/:pollTitle/:id')
-	// 	.get(isLoggedIn, pollHandler.upVote)
 
 	app.route('/vote/:pollTitle/:id')
 		.get(pollHandler.upVote)

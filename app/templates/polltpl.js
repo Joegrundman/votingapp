@@ -26,6 +26,13 @@ module.exports = function(poll, isAuthenticated){
    `)
    }
 
+	function getButtonGroup(field) {
+		return (`
+		<button id="${cssEnc(poll.title)}/${field._id}" class="btn btn-default" onclick="upVote(thiss)">${field.name}</button>
+		`)
+	}
+
+
    return (`
 <!DOCTYPE html>
 
@@ -47,6 +54,13 @@ module.exports = function(poll, isAuthenticated){
 		<br>
 		<div class="container">
 			<div id="bar-chart">
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+			<div class="btn-group btn-group-justified">
+			${poll.fields.map(f=> getButtonGroup(f)).join('s')}
+			</div>
 			</div>
 		</div>
 		<span id="errorMessage"></span>

@@ -3,6 +3,10 @@
 <html>
 
 	<head>
+		<meta property="og:url" content="http://localhost:3000">
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="rs-votemaster">
+		<meta property="og:description" content="Poll your most burning questions here">
 		<title>rs-votemaster</title>
 		
 		<link href="/public/css/bootswatch-journal.min.css" rel="stylesheet" type="text/css">
@@ -14,27 +18,55 @@
 		<a class="menu" href="/profile">Profile</a>
 		<p>|</p>
 		<a class="menu" href="/logout">Logout</a>
-		<p>|</p>
-		<a class="menu" href="/login">Login</a>
 	</header>
 
 	<body>
+					<!-- Load Facebook SDK for JavaScript -->
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.7&appId=1699393133613242";
+			fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+	</script>
+
+		<!-- Your share button code -->
+		<div>
+			<div class="fb-share-button" 
+				data-href="http://localhost:3000/" 
+				data-layout="button_count" 
+				data-size="large" 
+				data-mobile-iframe="true">
+				<a class="fb-xfbml-parse-ignore" 
+					target="_blank" 
+					href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share
+				</a>
+			</div>
 		<br>
 		<div
+			class="fb-like"
+			data-width="150">
+		</div>
+				<!--<div
 			class="fb-like"
 			data-share="true"
 			data-width="450"
 			data-show-faces="true">
-		</div>
+		</div>-->
 		<br>
-		<div class="container">
-			<p> Click Button To Make A New Poll</p>
-			<small>You must be logged in first</small>
-			<a href="/newpoll">
-				<div class="btn" id="newpoll-btn">
-					New Poll
-				</div>
-			</a>
+
+		<div class="container">	
+			<div class="login">
+				<a href="/auth/facebook" style="text-decoration: none">
+					<div class="btn facebook" id="login-btn">
+						<img src="/public/img/facebook_32px.png" alt="facebook logo" />
+						Login with Facebook
+					</div>
+				</a>
+
+			</div>
 		</div>
 		<br>
 
@@ -42,8 +74,9 @@
 			<div class="poll-container" id="poll-holder">
 			</div>
 		</div>
-		
+		<script src="//d3js.org/d3.v3.min.js"></script>		
 		<script type="text/javascript" src="common/ajax-functions.js"></script>
+		<script type="text/javascript" src="common/barcharts.js"></script>
 		<script type="text/javascript" src="controllers/pollsController.client.js"></script>
 		<script type="text/javascript" src="controllers/userController.client.js"></script>
 	

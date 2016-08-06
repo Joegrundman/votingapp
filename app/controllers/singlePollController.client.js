@@ -3,6 +3,7 @@ function updateVoteOnPoll(data) {
     data = JSON.parse(data)
     var votes = document.querySelector('#votes_' + data.id)
     votes.textContent = data.votes;
+    updateBarChart(data)
 }
 
 function upVote(e) {
@@ -83,7 +84,7 @@ var polldata = ajaxFunctions.ajaxRequest('get', getPollUrl, function (data) {
     var names = fields.map(f => f.name)
     var votes = fields.map(f => f.votes)
 
-    var margin = { top: 30, right: 10, bottom: 60, left: 180 }
+    var margin = { top: 30, right: 10, bottom: 60, left: 240 }
     var width = 860 - margin.left - margin.right;
     var barThickness = 30;
     var barOffset = 15;
@@ -124,7 +125,7 @@ var polldata = ajaxFunctions.ajaxRequest('get', getPollUrl, function (data) {
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis)
         .append("text")
-        .attr("x", 280)
+        .attr("x", 260)
         .attr("dy", "2.5em")
         .style("color", "#222222")
         .style("font-size", 16)
