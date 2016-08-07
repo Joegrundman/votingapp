@@ -109,7 +109,9 @@ function PollHandler () {
       var title = decodeURIComponent(req.url.replace("/toggleClosePoll/", ""))
       Poll.findOne({title: title}, function(err, doc){
             if(err) throw err
-            doc.isClosed = !doc.isClosed
+            if(doc.isClosed){
+                  doc.isClosed = !doc.isClosed
+            } else { doc.isClosed = true }
             doc.save(function (err, doc){
                   if(err) throw err
                   var msg = {
@@ -125,7 +127,8 @@ function PollHandler () {
       var ipAddress = req.ip.toString(); 
       var parsedUrl = req.url.replace(/\/vote\//, "").split("/")
       var poll = decodeURIComponent(parsedUrl[0]) 
-      var field = decodeURIComponent(parsedUrl[1]) 
+      var field = decodeURIComponent(parsedUrl[1])
+      console.log('poll:', poll, ' :: field:', field) 
       Poll.findOne({title: poll}, function(err, doc){
          if(err) throw err;
          if(doc.votedByIP.indexOf(ipAddress) != -1) {
@@ -134,7 +137,8 @@ function PollHandler () {
                     msg: "you have already voted on this poll"
                   })
          }
-         var retrievedField = doc.fields.filter(function(f){ return f._id == field})[0]
+         var retrievedField = doc.fields.filter(function(f){ return f.name == field})[0]
+         console.log('retrieved field:', retrievedField)
          retrievedField.votes++
          doc.votedByIP.push(ipAddress)
 

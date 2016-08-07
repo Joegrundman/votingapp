@@ -254,6 +254,30 @@ span {
 	box-shadow: 2px 2px 3px rgba(40,40,40, 0.5);
 }
 
+.side-buttons {
+	fill: #f8f8f8;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.side-buttons:hover {
+	fill: #000;
+	opacity: 0.1;
+}
+
+.clicked-side-button {
+	fill: #000;
+	opacity: 0.2;
+	cursor: pointer;
+}
+
+.clicked-side-button:hover {
+	fill: #000;
+	opacity: 0.2;
+	cursor: pointer;	
+}
+
+
 .bars {
 	stroke: "#31708f";
 	stroke-width: 5px;
@@ -275,6 +299,28 @@ span {
   font-family: 'Roboto', sans-serif;
   font-size: 16px
 }
+
+.svg-vote-btn {
+	fill: #eb6864;
+	rx: 5;
+	ry: 5;
+	cursor: pointer;
+}
+
+.svg-vote-btn:hover {
+	fill: #e53c37;
+}
+
+.svg-btn-text {
+	fill: #fff;
+	font-size: 16px;
+	pointer-events: none;
+	text-anchor: middle;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+
 
 .y.axis path {
   display: none;

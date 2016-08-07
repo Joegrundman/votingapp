@@ -1,3 +1,4 @@
+var selectedOption = ''
 
 function updateVoteOnPoll(data) {
     data = JSON.parse(data)
@@ -19,6 +20,23 @@ function upVote(e) {
             err = JSON.parse(err)
             document.querySelector("#errorMessage").innerHTML = err.msg
         });
+}
+
+function voteFromSVG () {
+    if(selectedOption == '') { return }
+    var poll = encodeURIComponent(document.querySelector('#pollTitle').textContent)
+    var url = `/vote/${poll}/${encodeURIComponent(selectedOption)}`
+    console.log(url)
+    ajaxFunctions.ajaxRequest('GET', url,
+        function success(doc) {
+            var docObj = JSON.parse(doc);
+            updateVoteOnPoll(docObj)
+        },
+        function error(err) {
+            err = JSON.parse(err)
+            document.querySelector("#errorMessage").innerHTML = err.msg
+        });
+
 }
 
 function addField(e) {
@@ -60,20 +78,15 @@ function appendNewField(data) {
     closeAnyNewField();
 }
 
-// encoding to make names css compatibl
-function cssDec(name) {
-    return name.replace(/__sp__/g, " ").replace(/__q__/g, "?").replace(/__ex__/g, "!")
-}
-
-function cssEnc(name) {
-    return name.replace(/\s/g, "__sp__").replace(/[\?]/g, "__q__").replace(/[\!]/g, "__ex__")
-}
-
 // closes open newField inputs
 function closeAnyNewField() {
     if (document.querySelector('#newFormFieldInput')) {
         document.querySelector('#newFormFieldInput').outerHTML = ''
     }
+}
+
+function updateBarChart (field, vote) {
+// TODO: updateBarChart
 }
 
 var title = document.querySelector('#pollTitle').textContent;
@@ -84,7 +97,7 @@ var polldata = ajaxFunctions.ajaxRequest('get', getPollUrl, function (data) {
     var names = fields.map(f => f.name)
     var votes = fields.map(f => f.votes)
 
-    var margin = { top: 30, right: 10, bottom: 60, left: 240 }
+    var margin = { top: 30, right: 20, bottom: 60, left: 240 }
     var width = 860 - margin.left - margin.right;
     var barThickness = 30;
     var barOffset = 15;
@@ -134,6 +147,26 @@ var polldata = ajaxFunctions.ajaxRequest('get', getPollUrl, function (data) {
     chart.append("g")
         .attr("class", "y axis")
         .call(yAxis)
+
+    var sideButtons = chart.selectAll('.side-buttons').data(names)
+        .enter().append('rect')
+        .attr("class", "side-buttons")
+        .attr("height", barThickness + barOffset -2)
+        .attr("width", margin.left)
+        .attr("x", -margin.left)
+        .attr("y", function (data, i) {
+            return (i * (barThickness + barOffset))
+        })
+        .on('click', function (d, i){
+            d3.selectAll('.side-buttons')
+                .classed( "clicked-side-button", false)
+
+            d3.select(this)
+                .classed("clicked-side-button", true)
+
+            selectedOption = d
+        })
+
 
     var shadowbars = chart.selectAll('.shadowbars').data(votes)
         .enter().append('rect')
@@ -193,7 +226,21 @@ shadowbars.transition()
         .duration(2000)
        .ease("quad")
 
+    // vote button
+var svgVoteBtn = chart.append('rect')
+        .attr("class", "svg-vote-btn")
+        .attr("height", 40)
+        .attr("width", 65)
+        .attr("x", -200)
+        .attr("y", height + 5)
+        .on("click", voteFromSVG)
 
+  chart.append("text")
+        .attr("class", "svg-btn-text")
+        .attr("x", -168)
+        .attr("y", height + 29)
+        .text("Vote")
+ 
 
 
 })

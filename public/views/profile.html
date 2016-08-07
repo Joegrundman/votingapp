@@ -2,51 +2,56 @@
 
 <html>
 
-	<head>
-		<title>rs-votemaster</title>
-		<link href="/public/css/bootswatch-journal.min.css" rel="stylesheet" type="text/css">		
-		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
-	</head>
+<head>
+	<title>rs-votemaster</title>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
+	<link href="/public/css/bootswatch-journal.min.css" rel="stylesheet" type="text/css">
+	<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+</head>
 
-	<body>
-
-			<a href="/logout" style="text-decoration: none; color: white">
-				<button class="btn btn-large btn-info" >Logout</button>
-			</a>
-			<a href="/" style="text-decoration: none; color: white">
-				<button class="btn btn-large btn-default" >Go Back</button>
-			</a>
-		</div>
+<body>
+	<div class="panel">
 		<h1 class="text-center">Dashboard: <span id="display-name" class="profile-value"></span></h1>
-
-		<br>
-		<div class="container">
-			<div class="panel pnl-newpoll">
-				<div class="form-group form-newpoll">
-					<input class="form-control fc-newpoll-title"  id ="newPollTitle" maxlength="28" type="text" placeholder="Title of New Poll">
-					<br>
-					<br>
-					<input class="form-control fc-newpoll-option" id="option1" maxlength="28" type="text" placeholder="Option 1">
-					<br>
-					<input class="form-control fc-newpoll-option" id="option2" maxlength="28" type="text" placeholder="Option 2">
-				</div>
-				<button class="btn btn-info" onclick="addFieldToNewPoll()">Add Option</button>
-				<button class="btn btn-success" onclick="submitNewPoll()">Submit</button>
-			</div>
-
-		</div>
-		<br>
-		<div class="container">
-			<div class="poll-container" id="poll-holder">
+	</div>
+	<br>
+	<div class="container">
+		<div class="row">
+			<div class="center-block" style="width: 15em">
+				<a href="/logout" style="text-decoration: none; color: white">
+					<button class="btn btn-large btn-default">Logout <i class="ion-log-out"></i></button>
+				</a>
+				<a href="/" style="text-decoration: none; color: white">
+					<button class="btn btn-large btn-warning">Go Back <i class="ion-arrow-left-a"></i></button>
+				</a>
 			</div>
 		</div>
-				
-		<script src="//d3js.org/d3.v3.min.js"></script>		
-		<script type="text/javascript" src="common/encoding.js"></script>
-		<script type="text/javascript" src="common/ajax-functions.js"></script>
-		<script type="text/javascript" src="common/barcharts.js"></script>
-		<script type="text/javascript" src="controllers/userController.client.js"></script>
-		<script type="text/javascript" src="controllers/profileController.client.js"></script>
-	</body>
+		<br>
+		<div class="panel pnl-newpoll">
+			<div class="form-group form-newpoll">
+				<input class="form-control fc-newpoll-title" id="newPollTitle" maxlength="28" type="text" placeholder="Title of New Poll">
+				<br>
+				<br>
+				<input class="form-control fc-newpoll-option" id="option1" maxlength="28" type="text" placeholder="Option 1">
+				<br>
+				<input class="form-control fc-newpoll-option" id="option2" maxlength="28" type="text" placeholder="Option 2">
+			</div>
+			<button class="btn btn-info" onclick="addFieldToNewPoll()">Add Option <i class="ion-plus-round"></i></button>
+			<button class="btn btn-success" onclick="submitNewPoll()">Submit <i class="ion-checkmark-round"></i></button>
+		</div>
+
+	</div>
+	<br>
+	<div class="container">
+		<div class="poll-container" id="poll-holder">
+		</div>
+	</div>
+
+	<script src="//d3js.org/d3.v3.min.js"></script>
+	<script type="text/javascript" src="common/encoding.js"></script>
+	<script type="text/javascript" src="common/ajax-functions.js"></script>
+	<script type="text/javascript" src="common/barcharts.js"></script>
+	<script type="text/javascript" src="controllers/userController.client.js"></script>
+	<script type="text/javascript" src="controllers/profileController.client.js"></script>
+</body>
 
 </html>

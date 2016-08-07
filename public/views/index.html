@@ -9,15 +9,13 @@
 		<meta property="og:description" content="Poll your most burning questions here">
 		<title>rs-votemaster</title>
 		
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
 		<link href="/public/css/bootswatch-journal.min.css" rel="stylesheet" type="text/css">
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
 	</head>
 
 	<header>
 		<p>Welcome, <span id="display-name">Guest</span>!</p>
-		<a class="menu" href="/profile">Profile</a>
-		<p>|</p>
-		<a class="menu" href="/logout">Logout</a>
 	</header>
 
 	<body>
@@ -57,24 +55,25 @@
 		</div>-->
 		<br>
 
-		<div class="container">	
-			<div class="login">
+		<div class="container main-controls">	
+
+			<div class="login" id="login-buttons">
+				<h4 class="text-center" id="login-header" style="color: white">To make your own polls,or modify existing polls, Log In</h4>
+				<br>
 				<a href="/auth/facebook" style="text-decoration: none">
 					<div class="btn facebook" id="login-btn">
-						<img src="/public/img/facebook_32px.png" alt="facebook logo" />
-						Login with Facebook
+						Login with Facebook  <i class="ion-social-facebook"></i>
 					</div>
 				</a>
-
 			</div>
 		</div>
 		<br>
 
 		<div class="container">
-			<div class="poll-container" id="poll-holder">
-			</div>
+			<div class="poll-container" id="poll-holder"></div>
 		</div>
 		<script src="//d3js.org/d3.v3.min.js"></script>		
+		<script type="text/javascript" src="common/encoding.js"></script>
 		<script type="text/javascript" src="common/ajax-functions.js"></script>
 		<script type="text/javascript" src="common/barcharts.js"></script>
 		<script type="text/javascript" src="controllers/pollsController.client.js"></script>

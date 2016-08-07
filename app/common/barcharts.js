@@ -10,7 +10,7 @@ function drawBarchart(poll, scale){
     if(poll.author && poll.author.facebook && poll.author.facebook.displayName) {
         author = poll.author.facebook.displayName
     }
-    var margin = { top: 100, right: 10, bottom: 60, left: 240 }
+    var margin = { top: 100, right: 20, bottom: 60, left: 240 }
     var width = 860 - margin.left - margin.right;
     var barThickness = 20 * scaleFactor;
     var barOffset = 10 * scaleFactor;

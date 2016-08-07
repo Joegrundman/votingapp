@@ -14,8 +14,8 @@ function addFieldToOldPoll(e) {
     <div class="form-group form-newpoll">
         <input id="newFieldOption" name="newOption" type="text" class="form-control" placeholder="New option">
         <br>
-        <button type="button" id="ajaxNewField_${title}" class="btn btn-success" onclick="ajaxNewField(this)">Submit</button>
-        <button type="button" class="btn btn-warning" onclick="closeAnyNewField()">Cancel</button>
+        <button type="button" id="ajaxNewField_${title}" class="btn btn-success" onclick="ajaxNewField(this)">Submit <i class="ion-checkmark-round"></i></button>
+        <button type="button" class="btn btn-warning" onclick="closeAnyNewField()">Cancel <i class="ion-close-round"></i></button>
     </div>
     </div>
     `
@@ -98,10 +98,12 @@ function pollTemplate (poll) {
         <div id="barchart_${encTitle}"></div>
         <br>
         <div class="row">
-        <div class="center-block" style="width: 15em">
-        <button id="del_${encTitle}" class="btn btn-danger" onclick="deletePoll(this)">Delete</button>
-        <button type="button" id="addField_${encTitle}" class="btn btn-info" onclick="addFieldToOldPoll(this)">Add Field</button>
-        <button class="btn btn-warning" id="toggle_close_${encTitle}" onclick="toggleClose(this)">${poll.isClosed ? "Reopen" : "Close"}</button>
+        <div class="center-block" style="width: 18em">
+        <button id="del_${encTitle}" class="btn btn-danger" onclick="deletePoll(this)">Delete <i class="ion-trash-b"></i></button>
+        <button type="button" id="addField_${encTitle}" class="btn btn-info" onclick="addFieldToOldPoll(this)">Add Field <i class="ion-plus-round"></i></button>
+        <button class="btn btn-warning" id="toggle_close_${encTitle}" onclick="toggleClose(this)">
+            ${poll.isClosed ? "Reopen <i class=\"ion-checkmark-round\"></i>" : "Retire <i class=\"ion-close-round\"></i>"}
+        </button>
         </div>
         </div>
         </div>
@@ -143,12 +145,12 @@ function toggleClose(e) {
     var btnBefore = document.querySelector(`#${e.id}`)
         if (btnBefore.value == "Retire"){ btn.textContent = "Reopen" }
         else { btnBefore.textContent = "Retire" }    
-    ajaxFunctions.ajaxRequest('POST', /toggleClosePoll/ + cssEnc(title), function (msg) {
+    ajaxFunctions.ajaxRequest('POST', /toggleClosePoll/ + encodeURIComponent(cssDec(title)), function (msg) {
         // this will make sure value matches server value
         msg = JSON.parse(msg)
         var btn = document.querySelector(`#toggle_close_${cssEnc(msg.poll)}`)
-        if (msg.isClosed){ btn.textContent = "Reopen" }
-        else { btn.textContent = "Retire" }
+        if (msg.isClosed){ btn.innerHTML = "Reopen <i class=\"ion-checkmark-round\"></i>" }
+        else { btn.innerHTML = "Retire <i class=\"ion-close-round\"></i>" }
 
     })  
 }

@@ -26,13 +26,6 @@ module.exports = function(poll, isAuthenticated){
    `)
    }
 
-	function getButtonGroup(field) {
-		return (`
-		<button id="${cssEnc(poll.title)}/${field._id}" class="btn btn-default" onclick="upVote(thiss)">${field.name}</button>
-		`)
-	}
-
-
    return (`
 <!DOCTYPE html>
 
@@ -56,13 +49,6 @@ module.exports = function(poll, isAuthenticated){
 			<div id="bar-chart">
 			</div>
 		</div>
-		<div class="container">
-			<div class="row">
-			<div class="btn-group btn-group-justified">
-			${poll.fields.map(f=> getButtonGroup(f)).join('s')}
-			</div>
-			</div>
-		</div>
 		<span id="errorMessage"></span>
 		<div class="container fieldContainer">
          ${poll.fields.map(f => getField(f, poll.title)).join('')}
@@ -75,6 +61,7 @@ module.exports = function(poll, isAuthenticated){
 
 		<!--  note these resources go back one directory otherwise looks from /poll/-->
 		<script src="//d3js.org/d3.v3.min.js"></script>
+		<script type="text/javascript" src="../common/encoding.js"></script>
 		<script type="text/javascript" src="../common/ajax-functions.js"></script>
 		<script type="text/javascript" src="../controllers/singlePollController.client.js"></script>
 	</body>
