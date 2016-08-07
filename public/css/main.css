@@ -13,12 +13,15 @@
   font-weight: 500;
   src: local('Roboto Medium'), local('Roboto-Medium'), url('../fonts/Roboto-Medium.ttf') format('truetype');
 }
-
+html {
+	height: 100%;
+}
 /****** Main Styling ******/
 
 body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 16px;
+	height: 100%;
 	margin: 0;
 	padding: 0;
 	/*background-color: #c9ecf8;*/
@@ -27,6 +30,8 @@ body {
   background: -o-linear-gradient(bottom right, #4267B2, #c9ecf8); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(bottom right, #4267B2, #c9ecf8); /* For Firefox 3.6 to 15 */
   background: linear-gradient(to bottom right, #4267B2, #c9ecf8); /* Standard syntax */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 

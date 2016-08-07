@@ -131,16 +131,18 @@ function PollHandler () {
       console.log('poll:', poll, ' :: field:', field) 
       Poll.findOne({title: poll}, function(err, doc){
          if(err) throw err;
-         if(doc.votedByIP.indexOf(ipAddress) != -1) {
-               console.log('error already voted on' + decodeURI(req.url))
-              return res.status(409).json({
-                    msg: "you have already voted on this poll"
-                  })
-         }
+      //    if(doc.votedByIP.indexOf(ipAddress) != -1) {
+      //          console.log('error already voted on' + decodeURI(req.url))
+      //         return res.status(409).json({
+      //               msg: "you have already voted on this poll"
+      //             })
+      //    }
          var retrievedField = doc.fields.filter(function(f){ return f.name == field})[0]
          console.log('retrieved field:', retrievedField)
          retrievedField.votes++
-         doc.votedByIP.push(ipAddress)
+         if(doc.votedByIP.indexOf(ipAddress) == -1){
+            doc.votedByIP.push(ipAddress)
+         }
 
          doc.save(function(err) {
             if(err) throw err;
@@ -149,7 +151,8 @@ function PollHandler () {
                   id: retrievedField._id,
                   votes: retrievedField.votes
             }
-            res.json(JSON.stringify(updateInfo))
+            // res.json(JSON.stringify(updateInfo))
+            res.json(JSON.stringify(doc))
          })
       })
 

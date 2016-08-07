@@ -1,10 +1,11 @@
 var selectedOption = ''
+var selectedIndex = null;
 
 function updateVoteOnPoll(data) {
     data = JSON.parse(data)
     var votes = document.querySelector('#votes_' + data.id)
     votes.textContent = data.votes;
-    updateBarChart(data)
+    // updateBarChart(data)
 }
 
 function upVote(e) {
@@ -12,7 +13,7 @@ function upVote(e) {
     var poll = encodeURIComponent(cssDec(urlParts[0]))
     var url = `/vote/${poll}/${urlParts[1]}`
     ajaxFunctions.ajaxRequest('GET', url,
-        function success(doc) {
+        function success(doc) {s
             var docObj = JSON.parse(doc);
             updateVoteOnPoll(docObj)
         },
@@ -28,9 +29,10 @@ function voteFromSVG () {
     var url = `/vote/${poll}/${encodeURIComponent(selectedOption)}`
     console.log(url)
     ajaxFunctions.ajaxRequest('GET', url,
-        function success(doc) {
-            var docObj = JSON.parse(doc);
-            updateVoteOnPoll(docObj)
+        function success(data) {
+            data = JSON.parse(data);
+            // updateVoteOnPoll(data)
+            updateVoteOnChart(data)
         },
         function error(err) {
             err = JSON.parse(err)
@@ -85,24 +87,31 @@ function closeAnyNewField() {
     }
 }
 
-function updateBarChart (field, vote) {
-// TODO: updateBarChart
-}
+// make global so that live update can access it
+var votes;
 
 var title = document.querySelector('#pollTitle').textContent;
 var getPollUrl = '/polldata/' + title
 
-var polldata = ajaxFunctions.ajaxRequest('get', getPollUrl, function (data) {
-    var fields = JSON.parse(data).fields
-    var names = fields.map(f => f.name)
-    var votes = fields.map(f => f.votes)
-
-    var margin = { top: 30, right: 20, bottom: 60, left: 240 }
+    var margin = { top: 100, right: 20, bottom: 60, left: 240 }
     var width = 860 - margin.left - margin.right;
     var barThickness = 30;
     var barOffset = 15;
+        var leftWidth = 100
+
+var polldata = ajaxFunctions.ajaxRequest('get', getPollUrl, function (poll) {
+    poll = JSON.parse(poll)
+    var author = 'unknown'
+    if(poll.author && poll.author.facebook && poll.author.facebook.displayName) {
+        author = poll.author.facebook.displayName
+    }
+    var fields = poll.fields
+    var names = fields.map(f => f.name)
+    votes = fields.map(f => f.votes)
+
+
     var height = ((barThickness + barOffset) * names.length)
-    var leftWidth = 100
+
 
     var xScale = d3.scale.linear()
         .domain([0, d3.max(votes) + 1])
@@ -165,6 +174,7 @@ var polldata = ajaxFunctions.ajaxRequest('get', getPollUrl, function (data) {
                 .classed("clicked-side-button", true)
 
             selectedOption = d
+            selectedIndex = i
         })
 
 
@@ -240,7 +250,64 @@ var svgVoteBtn = chart.append('rect')
         .attr("x", -168)
         .attr("y", height + 29)
         .text("Vote")
+
+    //header
+        chart.append("text")
+            .attr("class", "heading")
+            .style("font-size", "26px")
+            .attr("y", -60)
+            .text(poll.title)
+            
+        chart.append("text")
+            .attr("class", "heading")
+            .style("font-size", "16px")
+            .attr("y", -20)
+            .text(" posted by " + author)
+            
  
 
 
 })
+
+function updateVoteOnChart (data) {
+    console.log('data', data)
+    var newVotes = JSON.parse(data).fields.map(f => f.votes)
+
+    var newXScale = d3.scale.linear()
+        .domain([0, d3.max(votes) + 1])
+        .range([0, width])
+
+        
+    d3.select(".chart")
+    .selectAll(".shadowbars")
+    .data(newVotes)
+        .transition()
+        .attr("width", function (data) {
+            return newXScale(data)
+        })
+        .attr("x", function (data) {
+            return 4
+        })
+        .delay(function (data, i) {
+            return i * 20
+        })
+        .duration(1000)
+       .ease("quad")
+
+    d3.select(".chart")
+    .selectAll(".bars")
+    .data(newVotes)
+        .transition()
+        .attr("width", function (data) {
+            return newXScale(data)
+        })
+        .attr("x", function (data) {
+            return 0
+        })
+        .delay(function (data, i) {
+            return i * 20
+        })
+        .duration(1000)
+       .ease("quad")
+
+}
