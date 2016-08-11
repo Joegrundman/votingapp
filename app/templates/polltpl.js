@@ -31,9 +31,6 @@ module.exports = function(poll, isAuthenticated){
 						Login with Facebook  <i class="ion-social-facebook"></i>
 					</div>
 				</a>
-				<a	href="/getnextpoll">
-					<div class="btn btn-warning">Next <i class="ion-arrow-right-a"></i></div>
-				</a>
 		</div>	
 		`)
 	}
@@ -56,9 +53,6 @@ module.exports = function(poll, isAuthenticated){
                      My Polls  <i class="ion-ios-paper"></i>
                   </div>
                </a>
-				   <a	href="/getnextpoll">
-						<div class="btn btn-warning">Next <i class="ion-arrow-right-a"></i></div>
-					</a>
 		</div>		
 		`)
 	}
@@ -86,6 +80,14 @@ module.exports = function(poll, isAuthenticated){
 	</head>
 
 	<body>
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/">VoteMaster</a>
+				</div>
+				<h3 class="pull-right">${poll.title} </h3>
+			</div>
+		</nav>
 		<!-- do not delete this line. this is a hook for passing the name of the poll to the client for d3 and ajax to pick up -->
 		<div id="pollTitle" style="display: none">${poll.title}</div>
 		<div class="container main-controls">	

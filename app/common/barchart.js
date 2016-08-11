@@ -252,6 +252,11 @@ class Barchart {
             .attr("y", this.height + 29)
             .text("Vote")
 
+         chart.append("text")
+            .attr("x", -210)
+            .attr("y", -20)
+            .text("Click to select an option")
+
       }
 
       var shadowbars = chart.selectAll('.shadowbars').data(this.votes)

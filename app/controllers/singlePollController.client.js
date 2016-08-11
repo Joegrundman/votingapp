@@ -67,6 +67,12 @@ function voteFromSVG (selectedOption) {
     if(!selectedOption) { return }
     var poll = encodeURIComponent(document.querySelector('#pollTitle').textContent)
     var url = `/vote/${poll}/${encodeURIComponent(thisPoll.selectedOption)}`
+    function errorTpl (tplMsg){
+        return( `
+        <div class="alert alert-dismissible alert-danger">
+        ${tplMsg}
+        </div>  
+    `)}
     ajaxFunctions.ajaxRequest('GET', url,
         function success(data) {
             data = JSON.parse(data);
@@ -74,6 +80,6 @@ function voteFromSVG (selectedOption) {
         },
         function error(err) {
             err = JSON.parse(err)
-            document.querySelector("#errorMessage").innerHTML = err.msg
+            document.querySelector("#errorMessage").innerHTML = errorTpl(err.msg)
         });
 }

@@ -17,11 +17,7 @@ function PollHandler () {
                poll.fields.push({"name":newField, "votes": 0});
                poll.save(function(err, data) {
                      if(err) throw err;
-                     var responseData = {
-                           title: title,
-                           newField: data.fields.filter(f => f.name == newField.name )[0]
-                     }
-                  //     res.json(JSON.stringify(responseData))
+
                       res.json(JSON.stringify(data))
                })
          })
@@ -87,7 +83,6 @@ function PollHandler () {
          var title = decodeURIComponent(req.url.replace("/poll/", ""))
          Poll.findOne({title:title}).populate('author').exec(function(err, doc) {
                if(err) throw err;
-            // res.render(path + '/public/views/poll.html', {poll:doc})
             var pollTpl = require('../templates/polltpl')(doc, req.isAuthenticated())
             res.send(pollTpl)
          })
@@ -135,12 +130,12 @@ function PollHandler () {
       console.log('poll:', poll, ' :: field:', field) 
       Poll.findOne({title: poll}, function(err, doc){
          if(err) throw err;
-      //    if(doc.votedByIP.indexOf(ipAddress) != -1) {
-      //          console.log('error already voted on' + decodeURI(req.url))
-      //         return res.status(409).json({
-      //               msg: "you have already voted on this poll"
-      //             })
-      //    }
+         if(doc.votedByIP.indexOf(ipAddress) != -1) {
+               console.log('error already voted on' + decodeURI(req.url))
+              return res.status(409).json({
+                    msg: "you have already voted on this poll"
+                  })
+         }
          var retrievedField = doc.fields.filter(function(f){ return f.name == field})[0]
          console.log('retrieved field:', retrievedField)
          retrievedField.votes++
@@ -151,11 +146,6 @@ function PollHandler () {
          doc.save(function(err) {
             if(err) throw err;
 
-            var updateInfo = {
-                  id: retrievedField._id,
-                  votes: retrievedField.votes
-            }
-            // res.json(JSON.stringify(updateInfo))
             res.json(JSON.stringify(doc))
          })
       })
