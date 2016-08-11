@@ -20,7 +20,7 @@
     "clementine"
   ],
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "start:watch": "nodemon server.js"
   },
   "author": "Joe Grundman",
