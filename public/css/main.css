@@ -224,7 +224,9 @@ span {
 	background-color: #2c5b9f;
 }
 
-
+.fb-btns {
+	float: left;
+}
 
 /***** vote button  *****/
 
@@ -337,4 +339,8 @@ span {
 	background-color:#f8f8f8;
 	box-shadow: 2px 2px 3px rgba(40,40,40, 0.5);
 	width: 50em;
+}
+
+.main-controls {
+	margin-bottom: 1em;
 }

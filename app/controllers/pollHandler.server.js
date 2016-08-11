@@ -7,18 +7,22 @@ function PollHandler () {
    this.addFieldToPoll = function(req, res) {
          var urlData = decodeURI(req.url).replace('/addField/', '').split('/')
          var title = decodeURIComponent(urlData[0]);
-         var newField = {"name": decodeURIComponent(urlData[1]), "votes": 0}
+         var newField = decodeURIComponent(urlData[1])
 
          Poll.findOne({ title: title}, function(err, poll) {
                if(err) throw err;
-               poll.fields.push(newField);
+               if (poll.fields.indexOf(newField) != -1) {
+                     return res.json({"msg": "this option already exists"})
+               }
+               poll.fields.push({"name":newField, "votes": 0});
                poll.save(function(err, data) {
                      if(err) throw err;
                      var responseData = {
                            title: title,
                            newField: data.fields.filter(f => f.name == newField.name )[0]
                      }
-                      res.json(JSON.stringify(responseData))
+                  //     res.json(JSON.stringify(responseData))
+                      res.json(JSON.stringify(data))
                })
          })
    }

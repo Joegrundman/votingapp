@@ -98,12 +98,15 @@ function pollTemplate (poll) {
         <div id="barchart_${encTitle}"></div>
         <br>
         <div class="row">
-        <div class="center-block" style="width: 18em">
+        <div class="center-block" style="width: 26em">
         <button id="del_${encTitle}" class="btn btn-danger" onclick="deletePoll(this)">Delete <i class="ion-trash-b"></i></button>
         <button type="button" id="addField_${encTitle}" class="btn btn-info" onclick="addFieldToOldPoll(this)">Add Field <i class="ion-plus-round"></i></button>
         <button class="btn btn-warning" id="toggle_close_${encTitle}" onclick="toggleClose(this)">
             ${poll.isClosed ? "Reopen <i class=\"ion-checkmark-round\"></i>" : "Retire <i class=\"ion-close-round\"></i>"}
         </button>
+        <a href="/poll/${encodeURIComponent(cssDec(encTitle))}" style="text-decoration: none">
+            <button class="btn btn-primary">Go to Poll <i class="ion-arrow-right-a"></i></button>
+        </a>
         </div>
         </div>
         </div>
@@ -160,7 +163,9 @@ function updatePolls(data) {
     var pollsHtml = pollsObject.map(function (p) { return pollTemplate(p) }).join('')
     document.querySelector('#poll-holder').innerHTML = pollsHtml;
     pollsObject.forEach(function(p){
-        drawBarchart(p)
+        var ch = new Barchart(p)
+        ch.render()
+        // barchartFunctions.drawBarchart(p)
     })
 
 }

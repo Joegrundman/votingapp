@@ -49,7 +49,9 @@ function updatePolls(data) {
 
     // import from common/barcharts.js
     pollsObject.forEach(function(p){
-        drawBarchart(p)
+        // barchartFunctions.drawBarchart(p)
+        var ch = new Barchart(p)
+        ch.render()
     })
 }
 

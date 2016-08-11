@@ -1,15 +1,13 @@
 set display name to given name and family name if missing
-have individual poll live update the graph on click
-individual poll vote buttons integrated with d3js
 on individual poll, have next button that goes directly to the next poll to encourage voting through the whole collection
-live update number of fields
 improve profile header
 add facebook image
-have larger logout button more prominently located
+add author of additional poll fields
+if logging in on single poll, do not redirect to index
 consider switching multiple vote security to localstorage.
 switching to d3 4.0 to enable loading just the required polls
 using server-side d3 rendering?
 make responsive
 check likebutton wired up
 comments
-tidy up
+refactor
