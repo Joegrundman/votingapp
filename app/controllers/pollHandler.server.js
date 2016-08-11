@@ -26,7 +26,6 @@ function PollHandler () {
 
    this.addNewPoll = function(req, res) {
       var polldata = req.body
-      console.log(polldata)
       var title = polldata.polltitle
       var fields = []
       var userdata = req.user

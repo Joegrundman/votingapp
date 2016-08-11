@@ -44,6 +44,8 @@ module.exports = function (passport) {
 					}
 					if(profile.displayName) {
 						displayName = profile.displayName;
+					} else {
+						displayName = profile.familyName + ' ' + profile.givenName
 					}
 
 					// set all of the facebook information in our user model

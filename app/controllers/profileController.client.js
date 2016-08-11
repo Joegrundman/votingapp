@@ -47,21 +47,22 @@ function ajaxNewField(e) {
 
 function appendNewField(data) {
     ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', usersPollsUrl, updatePolls))
-    // data = JSON.parse(data)
-    // var title = cssEnc(data.title)
-    // var field = data.newField
-    // var thisPollUrl = title + "/" + field._id
-    // var nfTemplate = (`
-    //        <div>
-    //            <h4 id="">${field.name}: <span id="votes${field._id}">${field.votes} </span>
-    //            </h4> <button id="${thisPollUrl}" class="btn-vote" onclick="upVote(this)">Vote</button>
-    //        </div>
-    //      `)
-    // var fieldsDiv = document.querySelector('#fieldContainer_' + cssEnc(title))
-    // fieldsDiv.insertAdjacentHTML('beforeend', nfTemplate)
-    // remove newfield input
     closeAnyNewField();
 }
+
+// function appendNewField(data) {
+//     var poll = JSON.parse(data)
+//     var scaleFactor = 1.5
+//     var transitioningBars = true
+//     var votable = true
+//     var element = document.querySelector(`#barchart_${cssEnc(poll.title)}`)
+//     while(element.firstChild) {
+//         element.removeChild(element.firstChild)
+//     }
+//     var thisPoll = new Barchart(poll, scaleFactor, transitioningBars, votable, voteFromSVG)
+//     thisPoll.render();   
+//     closeAnyNewField()
+// }
 
 function appendNewPoll(data) {
     document.querySelector('#poll-holder').insertAdjacentHTML('beforeend', pollTemplate(data))
@@ -159,7 +160,7 @@ function toggleClose(e) {
 }
 
 function updatePolls(data) {
-    var pollsObject = JSON.parse(data);
+    var pollsObject = JSON.parse(data).reverse();
     var pollsHtml = pollsObject.map(function (p) { return pollTemplate(p) }).join('')
     document.querySelector('#poll-holder').innerHTML = pollsHtml;
     pollsObject.forEach(function(p){
