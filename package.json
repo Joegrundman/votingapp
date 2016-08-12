@@ -21,7 +21,7 @@
   ],
   "scripts": {
     "start": "node server.js",
-    "start:watch": "nodemon server.js"
+    "start:watch": "set NODE_ENV=development&&nodemon server.js"
   },
   "author": "Joe Grundman",
   "license": "MIT",

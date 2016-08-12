@@ -9,7 +9,11 @@ var bodyParser = require('body-parser');
 
 
 var app = express();
-require('dotenv').load();
+if(process.env.NODE_ENV == 'development') {
+	console.log('running in development mode')
+	require('dotenv').load()
+}
+
 require('./app/config/passport')(passport);
 
 mongoose.connect(process.env.MONGO_URI);
