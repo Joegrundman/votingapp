@@ -66,7 +66,8 @@ function appendNewField(data) {
 
 function appendNewPoll(data) {
     document.querySelector('#poll-holder').insertAdjacentHTML('beforeend', pollTemplate(data))
-    drawBarchart(data)
+    var ch = new Barchart(data)
+    ch.render(data)
     var inputs = document.querySelectorAll('.fc-newpoll-option')
     document.querySelector('.fc-newpoll-title').value = ''
     inputs.forEach(function(input) { input.value = ''})
