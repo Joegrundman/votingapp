@@ -82,7 +82,7 @@ function closeAnyNewField () {
 function deletePoll(e) {
     var title = e.id.replace("del_", "")
     ajaxFunctions.ajaxRequest('POST', /delPoll/ + cssEnc(title), function () {
-        ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', allPollsUrl, updatePolls))
+        ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', usersPollsUrl, updatePolls))
     })
 }
 
@@ -167,7 +167,6 @@ function updatePolls(data) {
     pollsObject.forEach(function(p){
         var ch = new Barchart(p)
         ch.render()
-        // barchartFunctions.drawBarchart(p)
     })
 
 }
