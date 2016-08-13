@@ -9,3 +9,8 @@ function cssDec(name) {
     if(!name) {return}
     return name.replace(/__sp__/g, " ").replace(/__q__/g, "?").replace(/__ex__/g, "!")
 }
+
+function uriEnc (name) {
+    if(!name) {return}
+    return encodeURIComponent(cssDec(name))
+}

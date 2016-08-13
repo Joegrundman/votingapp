@@ -81,7 +81,7 @@ function closeAnyNewField () {
 
 function deletePoll(e) {
     var title = e.id.replace("del_", "")
-    ajaxFunctions.ajaxRequest('POST', /delPoll/ + cssEnc(title), function () {
+    ajaxFunctions.ajaxRequest('POST', /delPoll/ + uriEnc(title), function () {
         ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', usersPollsUrl, updatePolls))
     })
 }
