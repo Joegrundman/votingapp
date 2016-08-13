@@ -5,7 +5,7 @@ var thisPoll;
 //variables defined for clarity in ajaxRequest
 
 var title = document.querySelector('#pollTitle').textContent;
-var getPollUrl = '/polldata/' + title
+var getPollUrl = '/polldata/' + encodeURIComponent(title)
 var scaleFactor = 1.5
 var transitioningBars = true
 var votable = true
