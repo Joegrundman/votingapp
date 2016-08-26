@@ -209,13 +209,13 @@ class Barchart {
 
       chart.append("text")
          .attr("class", "heading")
-         .style("font-size", 16 * this.scaleFactor)
+         .style("font-size", 18 * this.scaleFactor)
          .attr("y", -40 * this.scaleFactor)
          .text(this.poll.title)
 
       chart.append("text")
          .attr("class", "heading")
-         .style("font-size", 10 * this.scaleFactor)
+         .style("font-size", 12 * this.scaleFactor)
          .attr("y", -14 * this.scaleFactor)
          .text(" posted by " + this.author)
 
