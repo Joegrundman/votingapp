@@ -102,7 +102,7 @@ class Barchart {
          .attr("transform", "translate(0," + this.height + ")")
          .call(xAxis)
          .append("text")
-         .attr("x", 260)
+         .attr("x", 170 * this.scaleFactor)
          .attr("dy", 36 * this.scaleFactor)
          .style("color", "#222222")
          .style("font-size", 11 * this.scaleFactor)
@@ -113,25 +113,6 @@ class Barchart {
          .call(yAxis)
 
       if (this.votable) {
-      //    var sideButtons = chart.selectAll('.side-buttons').data(this.names)
-      //       .enter().append('rect')
-      //       .attr("class", "side-buttons")
-      //       .attr("height", this.barThickness + this.barOffset - 2)
-      //       .attr("width", this.margin.left)
-      //       .attr("x", -this.margin.left)
-      //       .attr("y", function (data, i) {
-      //          return (i * (_this.barThickness + _this.barOffset))
-      //       })
-      //       .on('click', function (d, i) {
-      //          d3.selectAll('.side-buttons')
-      //             .classed("clicked-side-button", false)
-
-      //          d3.select(this)
-      //             .classed("clicked-side-button", true)
-
-      //          _this.selectedOption = d
-      //          _this.selectedIndex = i
-      //       })
 
       var checkboxRows = chart.selectAll('.checkbox-rows').data(this.names)
             .enter().append('rect')
