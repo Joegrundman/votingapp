@@ -24,7 +24,7 @@ function addField(e) {
     <br>
     <div id="newFormFieldInput" class="panel pnl-newpoll">
     <div class="form-group form-newpoll">
-        <input id="newFieldOption" name="newOption" type="text" class="form-control" placeholder="New option">
+        <input id="newFieldOption" name="newOption" type="text" class="form-control" placeholder="New option" maxlength="18">
         <br>
         <button type="button" id="ajaxNewField_${title}" class="btn btn-success" onclick="ajaxNewField(this)">Submit <i class="ion-checkmark-round"></i></button>
         <button type="button" class="btn btn-warning" onclick="closeAnyNewField()">Cancel <i class="ion-close-round"></i></button>

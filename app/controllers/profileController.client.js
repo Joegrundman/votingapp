@@ -29,7 +29,7 @@ function addFieldToNewPoll(){
         <br>
         <input class="form-control fc-newpoll-option" 
             id="option${fieldsOnNewPollOptions}" 
-            maxlength="28" 
+            maxlength="18" 
             type="text" 
             placeholder="Option ${fieldsOnNewPollOptions}">    
     `)
@@ -50,19 +50,6 @@ function appendNewField(data) {
     closeAnyNewField();
 }
 
-// function appendNewField(data) {
-//     var poll = JSON.parse(data)
-//     var scaleFactor = 1.5
-//     var transitioningBars = true
-//     var votable = true
-//     var element = document.querySelector(`#barchart_${cssEnc(poll.title)}`)
-//     while(element.firstChild) {
-//         element.removeChild(element.firstChild)
-//     }
-//     var thisPoll = new Barchart(poll, scaleFactor, transitioningBars, votable, voteFromSVG)
-//     thisPoll.render();   
-//     closeAnyNewField()
-// }
 
 function appendNewPoll(data) {
     document.querySelector('#poll-holder').insertAdjacentHTML('beforeend', pollTemplate(data))
