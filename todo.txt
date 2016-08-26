@@ -3,6 +3,5 @@ add author of additional poll fields
 if logging in on single poll, do not redirect to index
 switching to d3 4.0 to enable loading just the required polls
 using server-side d3 rendering?
-make responsive
 comments
 add facebook image
