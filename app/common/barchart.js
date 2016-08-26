@@ -1,6 +1,7 @@
 class Barchart {
-   constructor(poll, scaleFactor, options) {
-      options = options || {}
+   constructor(poll, options) {
+        console.log(options) 
+      if(!options) options = {}
       this.voteAction = options.voteAction
       this.poll = poll
       this.scaleFactor = options.scaleFactor || 1
@@ -214,7 +215,7 @@ class Barchart {
          .style("font-size", 18 * this.scaleFactor)
          .attr("y", -40 * this.scaleFactor)
          .text(this.poll.title)
-         
+
       if (this.isProfile){
             chart.append("text")
             .attr("class", "heading")

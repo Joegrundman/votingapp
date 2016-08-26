@@ -6,13 +6,19 @@ var thisPoll;
 
 var title = document.querySelector('#pollTitle').textContent;
 var getPollUrl = '/polldata/' + encodeURIComponent(title)
-var scaleFactor = 1.5
-var transitioningBars = true
-var votable = true
+// var scaleFactor = 1.5
+// var transitioningBars = true
+// var votable = true
 
 ajaxFunctions.ajaxRequest('get', getPollUrl, function(poll) {
     poll = JSON.parse(poll)
-    thisPoll = new Barchart(poll, scaleFactor, transitioningBars, votable, voteFromSVG)
+    var opts = {
+        scaleFactor: 1.5,
+        transitioningBars: true,
+        votable: true,
+        voteAction: voteFromSVG
+    }
+    thisPoll = new Barchart(poll,opts)
     thisPoll.render(); 
 })
 
@@ -49,13 +55,13 @@ function appendNewField(data) {
     var d = document.querySelector(`#barchart_${cssEnc(poll.title)}`)
     var s = document.querySelector('.chart')
     d.removeChild(s)
-    var options = {
+    var opts = {
         scaleFactor: 1.5,
-        transitionningBars: true,
+        transitioningBars: true,
         votable: true,
         voteAction: voteFromSVG
     }
-    var thisPoll = new Barchart(poll, options)
+    var thisPoll = new Barchart(poll, opts)
     thisPoll.render();   
     closeAnyNewField()
 }
