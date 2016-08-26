@@ -95,7 +95,7 @@ module.exports = function(poll, isAuthenticated){
 				${isAuthenticated ? getLogout() : getLogin()}
 			</div>
 		</div>
-		<div class="container">
+		<div class="bc-container">
 			<div id="barchart_${cssEnc(poll.title)}">
 			</div>
 		</div>
