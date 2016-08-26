@@ -30,9 +30,8 @@ function updatePolls(data) {
         return (`
          <div>
             <div id="barchart_${encTitle}"></div>
-            <br>
             <a href="/poll/${encodeURIComponent(cssDec(encTitle))}" style="text-decoration: none">
-            <button class="btn btn-primary btn-large center-block">Go to Poll <i class="ion-arrow-right-a"></i></button>
+            <button class="btn btn-primary btn-gotopoll center-block">Go to Poll <i class="ion-arrow-right-a"></i></button>
             </a>
          </div>
          <br>

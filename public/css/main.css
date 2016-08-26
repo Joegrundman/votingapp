@@ -54,7 +54,7 @@ p {
 
 /****** Header Styling ******/
 
-header p {
+/*header p {
 	margin: 16px 0 5px 0;
 }
 
@@ -86,7 +86,7 @@ header a ~ p {
 
 #display-name {
 	font-weight: 400;
-}
+}*/
 
 /****** Login Styling ******/
 
@@ -112,59 +112,29 @@ header a ~ p {
 
 /****** Logo Div Styling ******/
 
-img {
+/*img {
 	margin: 0 auto;
 	display: block;
-}
+}*/
 
-.clementine-text { /* Styling for the Clementine.js text */
+/*.clementine-text { 
 	padding: 0;
 	margin: -25px 0 0 0;
 	font-weight: 500;
 	font-size: 60px;
 	color: #FFA000;
-}
+}*/
 
-/****** Click Styling ******/
 
-.btn-container {	/* Styling for the div that contains the buttons */
+.btn-container {
 	margin: -10px auto 0 auto;
 	text-align: center;
 }
 
-/*.btn {	
-	margin: 0 8px;
-	color: white;
-	background-color: #00BCD4;
-	display: inline-block;
-	border: 0;
-	font-size: 14px;
-	border-radius: 3px;
-	padding: 10px 5px;
-	width: 100px;
-	font-weight: 500;
-}*/
+.btn-gotopoll {
+	margin-top: 5px;
+}
 
-/*.btn:focus {
-	outline: none;
-}*/
-
-/*.btn:active {	
-	transform: scale(0.9, 0.9);
-	-webkit-transform: scale(0.9, 0.9);
-	-moz-transform: scale(0.9, 0.9);
-}*/
-
-/*.btn-delete {	
-	background-color: #ECEFF1;
-	color: #212121;
-}*/
-
-/*#click-nbr {
-	font-weight: 400;
-}*/
-
-/****** Profile Styling ******/
 
 .github-profile {
 	width: 350px;
@@ -246,15 +216,6 @@ span {
 	cursor: pointer;
 }
 
-/*d3js*/
-
-/*.bar {
-  fill: steelblue;
-}
-
-.bar:hover {
-  fill: brown;
-}*/
 
 .chart {
 	background: #f8f8f8;
@@ -263,24 +224,36 @@ span {
 
 .side-buttons {
 	fill: #f8f8f8;
-	opacity: 0;
+	fill-opacity: 0;
 	cursor: pointer;
+	stroke-width: 2px;
+	stroke: #000;
+	stroke-opacity: 0.1;
 }
 
 .side-buttons:hover {
 	fill: #000;
-	opacity: 0.1;
+	fill-opacity: 0.1;
+	stroke-width: 2px;
+	stroke: #000;
+	stroke-opacity: 0.2;
 }
 
 .clicked-side-button {
 	fill: #000;
-	opacity: 0.2;
+	fill-opacity: 0.2;
+	stroke-width: 2px;
+	stroke: #000;
+	stroke-opacity: 0.4;
 	cursor: pointer;
 }
 
 .clicked-side-button:hover {
 	fill: #000;
-	opacity: 0.2;
+	fill-opacity: 0.2;
+	stroke-width: 2px;
+	stroke: #000;
+	stroke-opacity: 0.4;
 	cursor: pointer;	
 }
 
@@ -327,6 +300,52 @@ span {
 	-webkit-user-select: none;
 	-ms-user-select: none;
 }
+
+.check-box {
+	fill: #fff;
+	rx: 5;
+	ry: 5;
+	stroke: #000;
+	stroke-width: 2;
+	cursor:pointer
+}
+
+.check-box-center {
+	fill: #fff;
+	rx: 3;
+	ry: 3;
+	stroke: #fff;
+	stroke-width: 1;
+	cursor:pointer
+}
+
+.check-box-center:hover {
+	fill: #ddd;
+	rx: 3;
+	ry: 3;
+	stroke: #999;
+	stroke-width: 1;
+	cursor:pointer
+}
+
+.clicked-check-box {
+	fill: #777;
+	rx: 3;
+	ry: 3;
+	stroke: #555;
+	stroke-width: 1;
+	cursor:pointer
+}
+
+.clicked-check-box:hover {
+	fill: #777;
+	rx: 3;
+	ry: 3;
+	stroke: #555;
+	stroke-width: 1;
+	cursor:pointer
+}
+
 
 
 .y.axis path {
