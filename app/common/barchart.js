@@ -1,10 +1,12 @@
 class Barchart {
-   constructor(poll, scaleFactor, transitioningBars, votable, voteCallback) {
-      this.voteAction = voteCallback
+   constructor(poll, scaleFactor, options) {
+      options = options || {}
+      this.voteAction = options.voteAction
       this.poll = poll
-      this.scaleFactor = scaleFactor || 1
-      this.transition = transitioningBars || false
-      this.votable = votable || false
+      this.scaleFactor = options.scaleFactor || 1
+      this.transition = options.transitioningBars || false
+      this.isProfile = options.isProfile || false
+      this.votable = options.votable || false
       this.title = cssEnc(this.poll.title)
       this.fields = this.poll.fields
       this.names = this.fields.map(f => f.name)
@@ -212,12 +214,15 @@ class Barchart {
          .style("font-size", 18 * this.scaleFactor)
          .attr("y", -40 * this.scaleFactor)
          .text(this.poll.title)
+         
+      if (this.isProfile){
+            chart.append("text")
+            .attr("class", "heading")
+            .style("font-size", 12 * this.scaleFactor)
+            .attr("y", -14 * this.scaleFactor)
+            .text(" posted by " + this.author)
+      }
 
-      chart.append("text")
-         .attr("class", "heading")
-         .style("font-size", 12 * this.scaleFactor)
-         .attr("y", -14 * this.scaleFactor)
-         .text(" posted by " + this.author)
 
 
       if (this.transition) {

@@ -152,7 +152,7 @@ function updatePolls(data) {
     var pollsHtml = pollsObject.map(function (p) { return pollTemplate(p) }).join('')
     document.querySelector('#poll-holder').innerHTML = pollsHtml;
     pollsObject.forEach(function(p){
-        var ch = new Barchart(p)
+        var ch = new Barchart(p, {isProfile: true})
         ch.render()
     })
 

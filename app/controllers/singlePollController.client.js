@@ -46,13 +46,16 @@ function ajaxNewField(e) {
 
 function appendNewField(data) {
     var poll = JSON.parse(data)
-    var scaleFactor = 1.5
-    var transitioningBars = true
-    var votable = true
     var d = document.querySelector(`#barchart_${cssEnc(poll.title)}`)
     var s = document.querySelector('.chart')
     d.removeChild(s)
-    var thisPoll = new Barchart(poll, scaleFactor, transitioningBars, votable, voteFromSVG)
+    var options = {
+        scaleFactor: 1.5,
+        transitionningBars: true,
+        votable: true,
+        voteAction: voteFromSVG
+    }
+    var thisPoll = new Barchart(poll, options)
     thisPoll.render();   
     closeAnyNewField()
 }
