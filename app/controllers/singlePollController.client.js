@@ -69,8 +69,8 @@ function voteFromSVG (selectedOption) {
     var url = `/vote/${poll}/${encodeURIComponent(thisPoll.selectedOption)}`
     function errorTpl (tplMsg){
         return( `
-        <div class="alert alert-dismissible alert-danger">
-        ${tplMsg}
+        <div class="alert alert-warning center-block" style="width: 30em;">
+        <span style="margin: 0 auto">${tplMsg}</span>
         </div>  
     `)}
     ajaxFunctions.ajaxRequest('GET', url,

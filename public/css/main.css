@@ -222,6 +222,14 @@ span {
 	box-shadow: 2px 2px 3px rgba(40,40,40, 0.5);
 }
 
+.checkbox-rows {
+	fill: #f8f8f8;
+	fill-opacity: 0;
+	stroke-width: 2px;
+	stroke: #000;
+	stroke-opacity: 0.1;	
+}
+
 .side-buttons {
 	fill: #f8f8f8;
 	fill-opacity: 0;

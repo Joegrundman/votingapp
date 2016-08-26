@@ -88,11 +88,11 @@ function PollHandler () {
    }
 
    this.getSinglePollData = function(req, res) {
-         var title = decodeURIComponent(req.url.replace("/polldata/", ""))
-         Poll.findOne({ title: title}, function(err, doc){
-               if(err) throw err;
-               res.json(doc)
-         })
+      var title = decodeURIComponent(req.url.replace("/polldata/", ""))
+      Poll.findOne({title:title}).populate('author').exec(function(err, doc) {
+            if(err) throw err;
+            res.json(doc)
+      })
    }
 
    this.deletePoll = function(req, res) { 

@@ -1,13 +1,8 @@
-set display name to given name and family name if missing
-on individual poll, have next button that goes directly to the next poll to encourage voting through the whole collection
-improve profile header
-add facebook image
+add email login
 add author of additional poll fields
 if logging in on single poll, do not redirect to index
-consider switching multiple vote security to localstorage.
 switching to d3 4.0 to enable loading just the required polls
 using server-side d3 rendering?
 make responsive
-check likebutton wired up
 comments
-refactor
+add facebook image

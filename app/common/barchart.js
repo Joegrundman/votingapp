@@ -13,12 +13,16 @@ class Barchart {
       if (this.poll.author && this.poll.author.facebook && this.poll.author.facebook.displayName) {
          this.author = this.poll.author.facebook.displayName
       }
-      this.margin = { top: 100, right: 20, bottom: 60, left: 240 }
-      this.width = 860 - this.margin.left - this.margin.right;
+      this.margin = { 
+            top: 66 * this.scaleFactor, 
+            right: 13 * this.scaleFactor, 
+            bottom: 40 * this.scaleFactor, 
+            left: 160 * this.scaleFactor }
+      this.width = (574 * this.scaleFactor) - this.margin.left - this.margin.right;
       this.barThickness = 20 * this.scaleFactor;
       this.barOffset = 10 * this.scaleFactor;
       this.height = ((this.barThickness + this.barOffset) * this.names.length)
-      this.leftWidth = 100
+      this.leftWidth = 67 * this.scaleFactor
 
       this.selectedOption;
       this.selectedIndex;
@@ -99,9 +103,9 @@ class Barchart {
          .call(xAxis)
          .append("text")
          .attr("x", 260)
-         .attr("dy", "2.5em")
+         .attr("dy", 36 * this.scaleFactor)
          .style("color", "#222222")
-         .style("font-size", 16)
+         .style("font-size", 11 * this.scaleFactor)
          .text("Votes Received")
 
       chart.append("g")
@@ -109,25 +113,65 @@ class Barchart {
          .call(yAxis)
 
       if (this.votable) {
-         var sideButtons = chart.selectAll('.side-buttons').data(this.names)
+      //    var sideButtons = chart.selectAll('.side-buttons').data(this.names)
+      //       .enter().append('rect')
+      //       .attr("class", "side-buttons")
+      //       .attr("height", this.barThickness + this.barOffset - 2)
+      //       .attr("width", this.margin.left)
+      //       .attr("x", -this.margin.left)
+      //       .attr("y", function (data, i) {
+      //          return (i * (_this.barThickness + _this.barOffset))
+      //       })
+      //       .on('click', function (d, i) {
+      //          d3.selectAll('.side-buttons')
+      //             .classed("clicked-side-button", false)
+
+      //          d3.select(this)
+      //             .classed("clicked-side-button", true)
+
+      //          _this.selectedOption = d
+      //          _this.selectedIndex = i
+      //       })
+
+      var checkboxRows = chart.selectAll('.checkbox-rows').data(this.names)
             .enter().append('rect')
-            .attr("class", "side-buttons")
+            .attr("class", "checkbox-rows")
             .attr("height", this.barThickness + this.barOffset - 2)
             .attr("width", this.margin.left)
             .attr("x", -this.margin.left)
             .attr("y", function (data, i) {
-               return (i * (_this.barThickness + _this.barOffset))
+                  return (i * (_this.barThickness + _this.barOffset))
+                  })
+      
+      var checkboxes = chart.selectAll('.check-box').data(this.names)
+            .enter().append('rect')
+            .attr("class", "check-box")
+            .attr("height", 20)
+            .attr("width",20)
+            .attr("x", -this.margin.left +10)
+            .attr("y", function (data, i) {
+               return (i * (_this.barThickness + _this.barOffset)) + 10
             })
-            .on('click', function (d, i) {
-               d3.selectAll('.side-buttons')
-                  .classed("clicked-side-button", false)
+
+      var checkboxCenter= chart.selectAll('.check-box-center').data(this.names)
+            .enter().append('rect')
+            .attr("class", "check-box-center")
+            .attr("height", 14)
+            .attr("width", 14)
+            .attr("x", -this.margin.left + 13)
+            .attr("y", function (data, i) {
+                  return (i * (_this.barThickness + _this.barOffset)) + 13
+            })
+           .on('click', function (d, i) {
+               d3.selectAll('.check-box-center')
+                  .classed("clicked-check-box", false)
 
                d3.select(this)
-                  .classed("clicked-side-button", true)
+                  .classed("clicked-check-box", true)
 
                _this.selectedOption = d
                _this.selectedIndex = i
-            })
+           })
          // vote button
          var svgVoteBtn = chart.append('rect')
             .attr("class", "svg-vote-btn")
@@ -148,7 +192,7 @@ class Barchart {
          chart.append("text")
             .attr("x", -210)
             .attr("y", -20)
-            .text("Click to select an option")
+            .text("Select an option")
 
       }
 
@@ -184,14 +228,14 @@ class Barchart {
 
       chart.append("text")
          .attr("class", "heading")
-         .style("font-size", "26px")
-         .attr("y", -60)
+         .style("font-size", 16 * this.scaleFactor)
+         .attr("y", -40 * this.scaleFactor)
          .text(this.poll.title)
 
       chart.append("text")
          .attr("class", "heading")
-         .style("font-size", "16px")
-         .attr("y", -20)
+         .style("font-size", 10 * this.scaleFactor)
+         .attr("y", -14 * this.scaleFactor)
          .text(" posted by " + this.author)
 
 
