@@ -54,3 +54,20 @@ function updatePolls(data) {
     })
 }
 
+// function showSignup() {
+//     if (document.querySelector("#signup-panel")) {
+//         document.querySelector("#login-form-holder").innerHTML = ""        
+//     } else {
+//         var signupTpl = drawSignupTemplate()
+//         document.querySelector("#login-form-holder").innerHTML = signupTpl
+//     }
+// }
+
+// function showLogin() {
+//     if (document.querySelector("#login-panel")) {
+//         document.querySelector("#login-form-holder").innerHTML = ""        
+//     } else {
+//         var loginTpl = drawLoginTemplate()
+//         document.querySelector("#login-form-holder").innerHTML = loginTpl
+//     }
+// }

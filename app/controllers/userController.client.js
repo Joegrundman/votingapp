@@ -2,9 +2,6 @@
 
 (function () {
 
-   var profileId = document.querySelector('#profile-id') || null;
-   var profileUsername = document.querySelector('#profile-username') || null;
-   var profileRepos = document.querySelector('#profile-repos') || null;
    var displayName = document.querySelector('#display-name');
    var loginButtons = document.querySelector('#login-buttons')
    var apiUrl = appUrl + '/api/:id';
@@ -14,35 +11,32 @@
    }
 
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
-      var userObject = JSON.parse(data);
+      var parsed = JSON.parse(data);
+      var userObject
+      if (parsed.facebook){
+          userObject = parsed.facebook
+      } else {
+          userObject = parsed.local
+      }
+      console.log(data)
       var useName = ''
-      if (userObject.displayName) {
-         useName= 'displayName'
-      } else if (userObject.username) {
-         useName= 'userName'
-      } else if (userObject.name) {
-         useName= 'name'
+      if (userObject && userObject.displayName) {
+         useName= userObject.displayName
+      } else if (userObject && userObject.username) {
+         useName= userObject.username
+      } else if (userObject && userObject.name) {
+         useName= userObject.name
       }
 
       if(useName != ''){
-         updateHtmlElement(userObject, displayName, useName);
+        //  updateHtmlElement(userObject, displayName, useName);
+        displayName.innerHTML = useName
          if (loginButtons){
             var loginHtml = getLoggedInButtons();
             loginButtons.innerHTML = loginHtml;
          }
       }
 
-      if (profileId !== null) {
-         updateHtmlElement(userObject, profileId, 'id');   
-      }
-
-      if (profileUsername !== null) {
-         updateHtmlElement(userObject, profileUsername, 'username');   
-      }
-
-      if (profileRepos !== null) {
-         updateHtmlElement(userObject, profileRepos, 'publicRepos');   
-      }
 
    }));
 })();

@@ -4,6 +4,7 @@ var express = require('express');
 var routes = require('./app/routes/index.js');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var flash = require('connect-flash')
 var session = require('express-session');
 var bodyParser = require('body-parser');
 
@@ -34,6 +35,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash())
 
 routes(app, passport);
 

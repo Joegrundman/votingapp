@@ -35,8 +35,14 @@ module.exports = function (app, passport) {
 
 	app.route('/api/:id')
 		.get(function (req, res) {
-			if(req.user) {
-				res.json(req.user.facebook);
+			if (req.user) {
+				console.log(req.user)
+				// if(req.user.facebook) {
+				// 	return res.json(req.user.facebook);
+				// } else {
+				// 	return res.json({username: req.user.local.username})
+				// }
+				res.json(req.user)
 			} else {
 				res.json({})
 			}
@@ -51,6 +57,21 @@ module.exports = function (app, passport) {
 			successRedirect: '/',
 			failureRedirect: '/'
 		}));
+
+
+	app.route('/auth/signup')
+		.get(passport.authenticate('local-signup', {
+			successRedirect: '/',
+			failureRedirect: '/',
+			failureFlash: true
+		}))
+
+	app.route('/auth/login')
+		.get(passport.authenticate('local-login', {
+			successRedirect: '/',
+			failureRedirect: '/',
+			failureFlash: true
+		}))
 
 	app.route('/poll/:polltitle')
 		.get(pollHandler.getOnePoll)

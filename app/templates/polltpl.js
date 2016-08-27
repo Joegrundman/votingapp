@@ -31,6 +31,9 @@ module.exports = function(poll, isAuthenticated){
 						Login with Facebook  <i class="ion-social-facebook"></i>
 					</div>
 				</a>
+				<button class="btn btn-success" id="email-login-button" onclick="showLogin()">Log In <i class="ion-log-in"></i></button>
+				<button class="btn btn-default" id="email-signup-button" onclick="showSignup()">Sign Up <i class="ion-person-add"></i></button>
+				
 		</div>	
 		`)
 	}
@@ -95,6 +98,8 @@ module.exports = function(poll, isAuthenticated){
 				${isAuthenticated ? getLogout() : getLogin()}
 			</div>
 		</div>
+		<div id="login-form-holder"></div>
+		<br>
 		<div class="bc-container">
 			<div id="barchart_${cssEnc(poll.title)}">
 			</div>
@@ -111,6 +116,7 @@ module.exports = function(poll, isAuthenticated){
 		<script type="text/javascript" src="../common/encoding.js"></script>
 		<script type="text/javascript" src="../common/ajax-functions.js"></script>
 		<script type="text/javascript" src="../common/barchart.js"></script>
+		<script type="text/javascript" src="../common/login-signup.js"></script>
 		<script type="text/javascript" src="../controllers/singlePollController.client.js"></script>
 	</body>
 

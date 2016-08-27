@@ -1,7 +1,7 @@
 'use strict';
 
 var FacebookStrategy = require('passport-facebook').Strategy;
-var GitHubStrategy = require('passport-github').Strategy;
+var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/users');
 var configAuth = require('./auth');
 
@@ -15,6 +15,56 @@ module.exports = function (passport) {
 			done(err, user);
 		});
 	});
+
+	passport.use('local-signup', new LocalStrategy({
+		passReqToCallback: true
+	},function(req, username, password, done) {
+			process.nextTick(function(){
+				User.findOne({
+					'local.username': username
+				}, function(err, user){
+					if(err) {return done(err)}
+					if(user){
+						console.log(user, 'already exists')
+						return done(null, false, req.flash('signupMessage', 'That username is already taken'))
+					} else {
+						var newUser = new User()
+						newUser.local.username = username
+						newUser.local.password = newUser.generateHash(password)
+
+						newUser.save(function(err){
+							if(err) throw err
+							return done(null, newUser)
+						})
+					}
+				})
+			})
+		}
+	))
+
+	passport.use('local-login', new LocalStrategy({
+		passReqToCallback: true
+	}, function(req, username, password, done){
+		process.nextTick(function(){
+			console.log('logging in with', username)
+			User.findOne({
+				'local.username': username
+			}, function (err, user) {
+				if(err) {return done(err)}
+
+			if(!user) {
+				console.log('not found user', username)
+				return done(null, false, req.flash('loginMessage', 'user not found'))
+			}
+			if (!user.validPassword(password)){
+				console.log('user found but password invalid')
+				return done(null, false, req.flash('loginMessage', 'wrong password'))
+			}
+			console.log(username, 'found')
+			return done(null, user)
+			})
+		})
+	}))
 
 	passport.use(new FacebookStrategy({
 		clientID: configAuth.facebookAuth.clientID,

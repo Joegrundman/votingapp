@@ -1,6 +1,5 @@
 class Barchart {
    constructor(poll, options) {
-        console.log(options) 
       if(!options) options = {}
       this.voteAction = options.voteAction
       this.poll = poll
@@ -15,6 +14,8 @@ class Barchart {
       this.author = 'unknown'
       if (this.poll.author && this.poll.author.facebook && this.poll.author.facebook.displayName) {
          this.author = this.poll.author.facebook.displayName
+      } else if (this.poll.author && this.poll.author.local && this.poll.author.local.username) {
+            this.author = this.poll.author.local.username
       }
       this.margin = { 
             top: 66 * this.scaleFactor, 

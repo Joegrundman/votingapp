@@ -26,13 +26,17 @@
   "author": "Joe Grundman",
   "license": "MIT",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
+    "connect-flash": "^0.1.1",
     "dotenv": "^1.2.0",
     "express": "^4.12.4",
     "express-session": "^1.11.3",
     "mongoose": "^4.1.0",
+    "morgan": "^1.7.0",
     "passport": "^0.3.0",
     "passport-facebook": "^2.1.1",
-    "passport-github": "^1.0.0"
+    "passport-github": "^1.0.0",
+    "passport-local": "^1.0.0"
   }
 }
